@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center"
+    style="font-size: 17px; z-index: 1002;">
+    <div class="container my-2">
+        <a class="navbar-brand" href="/"><img src="/img/logo_menup2.png" alt="logo" style="width: 60%;"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+                {{#if user}}
+                <a class="nav-link" href="/menu">Ir al menú   </a>
+                <a class="nav-link" href="/products/add">Agregar producto <i class="fas fa-plus-circle"></i>   </a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog"></i> Ajustes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/menu">Agregar sucursal</a>
+                        <a class="dropdown-item" href="/menu">Cambiar logo</a>
+                        <a class="dropdown-item" href="/menu">Cambiar foto de portada</a>
+                        <a class="dropdown-item" href="/products/add">Cambiar mis datos</a>
+                    </div>
+                </li>
+                <a class="nav-link" href="/logout">Cerrar sesión <i class="fas fa-sign-out-alt"></i> </a>
+                {{else}}
+                <a class="nav-link" href="/">Inicio</a>
+                <a class="nav-link" href="/#beneficios">Beneficios</a>
+                <a class="nav-link" href="/#precios">Precios</a>
+                <a class="nav-link" href="#">Contáctanos</a>
+                <a href="/signin" class="btn btn-outline-primary my-2 my-sm-0 mx-1" style="font-size: 17px;">Iniciar
+                    Sesión</a>
+                <a href="/signup" class="btn btn-outline-success my-2 my-sm-0 mx-1" style="font-size: 17px;">Registrarse</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</nav>

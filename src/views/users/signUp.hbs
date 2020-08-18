@@ -1,0 +1,73 @@
+<style>
+    body {
+        background: #007bff;
+        background: linear-gradient(to right, #20d1e9, #0661c9);
+        color: white;
+    }
+</style>
+
+<h1 class="text-center container py-5">Regístrate en menup</h1>
+
+<form class="register-form container" style="width: 70%; " action="/signup" method="POST">
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationServer01">Ingresa tu nombre</label>
+            <input type="text" name="name" class="form-control " id="validationServer01" placeholder="Nombre(s)" value="{{name}}" required autofocus>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationServer02">Ingresa tus apellidos</label>
+            <input type="text" name="lastName" class="form-control " id="validationServer02" placeholder="Apellidos" value="{{lastName}}" required>
+        </div>
+    </div>
+    <div class="form-row py-1">
+        <label for="">Ingresa tu email</label>
+        <input type="email" name="email" class="form-control" placeholder="tuemail@service.com" value="{{email}}" required>
+    </div>
+    <br>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationServer01">Ingresa tu contraseña</label>
+            <input type="password" name="password" class="form-control " id="validationServer01" placeholder="Constraseña" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationServer02">Confirma tu contraseña</label>
+            <input type="password" name="confirm_password" class="form-control " id="validationServer02" placeholder="Confirmar contraseña" required>
+        </div>
+    </div>
+    <div class="form-row py-1">
+        <div class="col-md-6 mb-2">
+            <label for="validationServer03">¿Cuál es el nombre de tu restaurante?</label>
+            <input name="restaurantName" type="text" class="form-control " id="validationServer03"
+                aria-describedby="validationServer03Feedback" placeholder="Nombre de tu restaurante" value="{{restaurantName}}" required>
+        </div>
+        <div class="col-md-6 mb-2">
+            <label for="validationServer04">Elige la categoría que describa a tu restaurante</label>
+            <select name="restaurantCategory" class="custom-select " id="validationServer04" aria-describedby="validationServer04Feedback"
+                required>
+                <option selected disabled value="">Selecciona una</option>
+                <option value="cafeteria">Cafetería</option>
+                <option value="carnes">Restaurante de carnes</option>
+                <option value="mariscos">Restaurante de mariscos</option>
+                <option value="comida_rapida">Comida rápida</option>
+                <option value="bar">Bar</option>
+                <option value="otro">Otra</option>
+            </select>
+            
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input " type="checkbox" value="" id="invalidCheck3"
+                aria-describedby="invalidCheck3Feedback" required>
+            <label class="form-check-label" for="invalidCheck3">
+                Acepto <a href="https://www.google.com" style="color: black;">terminos y condiciones</a>
+            </label>
+        </div>
+    </div>
+    <div class="align-items-center container">
+        <button class="btn btn-success" type="submit">Registrarme</button>
+    </div>
+</form>
+<br>
+<br>
+<br>

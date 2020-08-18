@@ -1,0 +1,50 @@
+<section class="textos-portada portada">
+    <h1>Administra tu menup</h1>
+    <h3>Restaurante La Central</h3>
+</section>
+
+<br>
+<br>
+<div class="row" style="width: 100%;">
+    {{#each menu}}
+    <br>
+    <div class="container col-md-4 mx-auto">
+        <div class="card container d-flex" style="width: 18rem;">
+            <img class="card-img-top p-1" src="{{imageUrl}}" alt="Foto">
+            <div class="card-body">
+                <h5 class="card-title">{{name}}</h5>
+                <p class="card-text text-muted" style="font-family: Roboto;">{{description}}</p>
+                <h4 class="text-success">$ {{price}}</h4>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center container">
+                    <a href="/products/edit/{{_id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"
+                            style="color: #0d56f1; scale: 1.4" title="Editar"></i></a>
+                    {{#if visible}}
+                    <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-eye" aria-hidden="true"
+                                title="Oculto"></i></button>
+                    </form>
+                    {{else}}
+                    <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                        <button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-eye-slash" aria-hidden="true"
+                                title="Oculto"></i></button>
+                    </form>
+                    {{/if}}
+                    <form action="/products/delete/{{_id}}?_method=DELETE" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                    </form>
+
+                </div>
+                <br>
+
+            </div>
+        </div>
+        <br>
+    </div>
+    <br>
+    {{/each}}
+</div>
+<br>

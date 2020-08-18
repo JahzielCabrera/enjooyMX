@@ -1,0 +1,156 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.imagen_svg{
+    clear:both;
+    float:left;
+}
+
+section{
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    background: #0366faf1;
+    overflow: hidden;
+}
+
+section .wave{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url(/img/wave.png);
+    block-size: 1000px 100px;
+}
+
+section.pricing {
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+    height: 1050px;
+  }
+  
+  .pricing .card {
+    border: none;
+    border-radius: 1rem;
+    transition: all 0.2s;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .pricing hr {
+    margin: 1.5rem 0;
+  }
+  
+  .pricing .card-title {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+  }
+  
+  .pricing .card-price {
+    font-size: 3rem;
+    margin: 0;
+  }
+  
+  .pricing .card-price .period {
+    font-size: 0.8rem;
+  }
+  
+  .pricing ul li {
+    margin-bottom: 1rem;
+  }
+  
+  .pricing .text-muted {
+    opacity: 0.7;
+  }
+  
+  .pricing .btn {
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    opacity: 0.7;
+    transition: all 0.2s;
+  }
+
+  /* Portada menu */
+section.portada{
+  width: 100%;
+  height: 250px;
+  background: #3bb2e9;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #5b64df71, #3b9ddf79), url(/img/portada.jpg);  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #5b64df71, #3b9ddf79), url(/img/portada.jpg); 
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.textos-portada{
+  display: flex;
+  height: 430px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.textos-portada h1{
+  color: #fff;
+  font-size: 60px;
+  font-weight: bold;
+}
+.textos-portada h3{
+  font-size: 40px;
+  font-weight: 300;
+  color: #fff;
+}
+
+  /* Hover Effects on Card */
+  
+  @media (min-width: 800px) {
+    .pricing .card:hover {
+      margin-top: -.25rem;
+      margin-bottom: .25rem;
+      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+    }
+    .pricing .card:hover .btn {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 500px) {
+    section.pricing {
+      height: 2750px;
+    }
+    h2.text-prices {
+      font-size: 20px;
+    }
+    form.register-form {
+      width: 90%;
+    }
+    .input-form{
+      width: 10%;
+    }
+    .text-signin{
+      font-size: 40px;
+    }
+    .textos-portada h1{
+      font-size: 40px;
+    }
+    .textos-portada h3{
+      font-size: 30px;
+    }
+  }
+
+   
+
