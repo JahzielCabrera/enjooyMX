@@ -2,24 +2,24 @@ const { Router } = require('express');
 const router = Router();
 const {isAuthenticated} = require('../helpers/validateAuth');
 
-const { 
+const {  
     renderProductForm, 
     createNewProduct, 
     renderMenu, 
-    renderEditForm,  
+    renderEditForm,   
     deleteProduct, 
     updateProduct,
-    changeVisibility
+    changeVisibility 
 } = require('../controllers/products.controller');
 
 // New Product
-router.get('/products/add', isAuthenticated, renderProductForm); //Send Form
-router.post('/products/new-product', isAuthenticated, createNewProduct); //Save Changes
+router.get('/products/add/:id', isAuthenticated, renderProductForm); //Send Form
+router.post('/products/new-product/:id', isAuthenticated, createNewProduct); //Save Changes
 
-// All Products
-router.get('/menu', isAuthenticated, renderMenu); 
+// All Products 
+router.get('/menu/:id', isAuthenticated, renderMenu); 
 
-// Edit Products
+// Edit Products 
 router.get('/products/edit/:id', isAuthenticated, renderEditForm); //Send Form
 router.put('/products/edit/:id', isAuthenticated, updateProduct); //Save Changes
 router.put('/products/visibility/:id', isAuthenticated, changeVisibility);

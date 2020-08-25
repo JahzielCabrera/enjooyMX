@@ -8,7 +8,7 @@ userCtrl.renderSignUpForm = (req, res) => {
 
 const User = require('../models/User');
 
-userCtrl.singUp = async (req, res, next) => {
+userCtrl.signUp = async (req, res, next) => {
     try{
         const errors = [];
         const { name, 
@@ -55,7 +55,7 @@ userCtrl.renderSignInForm = (req,res) => {
 
 userCtrl.signIn = passport.authenticate('local', {
         failureRedirect: '/signin',
-        successRedirect: '/menu',
+        successRedirect: '/admin',
         failureFlash: true
 });
     

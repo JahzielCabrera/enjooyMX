@@ -1,7 +1,7 @@
 <div class="col-md-4 mx-auto my-5">
     <div class="card text-center border-white">
         <div class="card-header bg-transparent border-white">
-            <h3>Editar producto</h3>
+            <h3>Editar producto</h3> 
         </div>
         <div class="card-body">
             <form action="/products/edit/{{product._id}}?_method=PUT" method="POST">
@@ -11,7 +11,7 @@
                 </div>
                 <div class="form-group">
                     <textarea name="description" class="form-control" , placeholder="Description">{{product.description}}</textarea>
-                </div>
+                </div> 
                 <div class="form-group">
                     <input type="decimal" step='any' name="price" class="form-control" placeholder="Precio" value="{{product.price}}"><br>
                 </div>

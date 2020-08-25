@@ -26,7 +26,20 @@ const UserSchema = new Schema({
     restaurantCategory: {
         type: String,
         required: true
-    }},
+    }, 
+    logo: {
+        type: String,
+        default: '/img/logo_menup2.png',
+    }, 
+    portada: {
+        type: String,
+        default: '/img/portada.jpg'
+    }, 
+    account: {
+        type: String,
+        default: 'free'
+    }
+},
     {   timestamps: true,
         writeConcern: {
           w: 'majority',

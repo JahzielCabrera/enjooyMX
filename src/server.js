@@ -8,11 +8,13 @@ const eventEmiter = require('events');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const helpers = require('./helpers/validateAuth');
 
 
 //Initializations
 const app = express();
 require('./config/passport');
+
 
 //Settings
 app.set("port", process.env.PORT || 4000);
@@ -21,7 +23,8 @@ app.engine(".hbs", exphbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get("views"),'layouts'),
     partialsDir: path.join(app.get("views"),'partials'),
-    extname: '.hbs'
+    extname: '.hbs',
+    helpers: require('./config/helpers')
 }));
 
 app.set("view engine", ".hbs");
@@ -53,6 +56,8 @@ app.use((req, res, next) => {
 app.use(require('./routes/index.routes'));
 app.use(require('./routes/products.routes'));
 app.use(require('./routes/users.routes'));
+app.use(require('./routes/sucursal.routes'));
+app.use(require('./routes/category.routes'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, "public")));

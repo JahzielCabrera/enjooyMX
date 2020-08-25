@@ -9,18 +9,17 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
                 {{#if user}}
-                <a class="nav-link" href="/menu">Ir al menú   </a>
-                <a class="nav-link" href="/products/add">Agregar producto <i class="fas fa-plus-circle"></i>   </a>
+                <a class="nav-link" href="/admin">Sucursales   </a>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-cog"></i> Ajustes
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/menu">Agregar sucursal</a>
-                        <a class="dropdown-item" href="/menu">Cambiar logo</a>
-                        <a class="dropdown-item" href="/menu">Cambiar foto de portada</a>
-                        <a class="dropdown-item" href="/products/add">Cambiar mis datos</a>
+                        <a class="dropdown-item" href="/sucursal/new">Agregar sucursal</a>
+                        <a class="dropdown-item" href="/admin">Cambiar logo</a>
+                        <a class="dropdown-item" href="/admin">Cambiar foto de portada</a>
+                        <a class="dropdown-item" href="/admin">Cambiar mis datos</a>
                     </div>
                 </li>
                 <a class="nav-link" href="/logout">Cerrar sesión <i class="fas fa-sign-out-alt"></i> </a>

@@ -5,7 +5,7 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
-    description: {
+    description: { 
         type: String,
         required: true
     },
@@ -19,7 +19,7 @@ const ProductSchema = new Schema({
     },
     visible: {
         type: Boolean,
-        default: true
+        default: true 
     },
     category: {
         type: String,
@@ -31,6 +31,11 @@ const ProductSchema = new Schema({
     },
     restaurantName: {
         type: String,
+        required: true
+    }, 
+    sucursalId: {
+        type: String, 
+        required: true
     }
 }, {
     timestamps: true

@@ -4,4 +4,4 @@ indexCtrl.renderIndex = (req, res) => {
     res.render('index')
 };
 
-module.exports = indexCtrl;
+module.exports = indexCtrl; 

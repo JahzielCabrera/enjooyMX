@@ -150,6 +150,12 @@ section.portada{
     .textos-portada h3{
       font-size: 30px;
     }
+    .btn-plus-category{
+      font-size: 10px;
+    }
+    h3.text-name-category{
+      font-size: 25px;
+    }
   }
 
    

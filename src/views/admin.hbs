@@ -1,0 +1,57 @@
+<section class="textos-portada portada">
+    <h1>Administra tus sucursales</h1>
+    {{#each user}}
+    <h3>{{restaurantName}}</h3>
+    {{/each}}
+</section>
+
+<br>
+<br>
+<div class="row" style="width: 100%;">
+    <br>
+    {{#each sucursales}}
+    <div class="container col-md-4 mx-auto">
+        <div class="card container d-flex" style="width: 18rem;">
+            <img class="card-img-top p-4" src="/img/logo_menup2.png" alt="Foto">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{name}}</h5>
+                <p class="card-text text-muted" style="font-family: Roboto;">{{location.adress}}, {{location.suburb}}, {{location.city}}, {{location.state}}</p>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center container">
+                    <a href="/sucursal/edit/{{_id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"
+                            style="color: #0d56f1; scale: 1.4" title="Editar"></i></a>
+
+                    <a href="/menu/{{_id}}"><button type="submit" class="btn btn-success btn-sm">Administrar menú</button></a>
+
+                </div>
+                <br>
+
+            </div> 
+        </div>
+        <br>
+
+    </div>
+    {{/each}}
+    <br>
+
+
+    <div class="container col-md-4 mx-auto">
+        <br>
+        <br>
+        <a href="/sucursal/new">
+            <div class="card container d-flex" style="width: 18rem;">
+                <img class="card-img-top p-4" src="/img/logo_menup2.png" alt="Foto">
+                <div class="card-body container text-center">
+                    <i class="fas fa-plus fa-3x container" style="color: rgb(44, 124, 243);"></i>
+                    <hr>
+                    <h4 class="text-center text-success">Agregar sucursal</h4>
+                </div>
+                <br> 
+
+            </div>
+        </a>
+    </div>
+    <br>
+</div>
+</div>
+<br>

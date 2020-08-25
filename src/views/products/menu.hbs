@@ -1,50 +1,96 @@
 <section class="textos-portada portada">
     <h1>Administra tu menup</h1>
-    <h3>Restaurante La Central</h3>
+    <h3>{{user.restaurantName}}</h3>
+    <h5 class="text-white">{{sucursal.name}}</h5>
+    <p class="text-white" style="font-family: Roboto;">{{sucursal.location.adress}}, {{sucursal.location.suburb}},
+        {{sucursal.location.city}}, {{sucursal.location.state}}</p>
 </section>
 
+<nav class="navbar navbar-light navbar-expand navbar-light px-5" style="background-color: #0496ff;">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link text-white" href="/products/add/{{sucursal._id}}" style="font-size: 17px;">Agregar
+                    producto <i class="fas fa-plus-circle"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/category/new/{{sucursal._id}}" style="font-size: 17px;">Agregar
+                    categoría <i class="fas fa-plus-circle"></i></a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <br>
 <br>
-<div class="row" style="width: 100%;">
-    {{#each menu}}
-    <br>
-    <div class="container col-md-4 mx-auto">
-        <div class="card container d-flex" style="width: 18rem;">
-            <img class="card-img-top p-1" src="{{imageUrl}}" alt="Foto">
-            <div class="card-body">
-                <h5 class="card-title">{{name}}</h5>
-                <p class="card-text text-muted" style="font-family: Roboto;">{{description}}</p>
-                <h4 class="text-success">$ {{price}}</h4>
-                <hr>
-                <div class="d-flex justify-content-between align-items-center container">
-                    <a href="/products/edit/{{_id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"
-                            style="color: #0d56f1; scale: 1.4" title="Editar"></i></a>
-                    {{#if visible}}
-                    <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
-                        <input type="hidden" name="_method" value="PUT">
-                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-eye" aria-hidden="true"
-                                title="Oculto"></i></button>
-                    </form>
-                    {{else}}
-                    <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
-                        <input type="hidden" name="_method" value="PUT">
-                        <button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-eye-slash" aria-hidden="true"
-                                title="Oculto"></i></button>
-                    </form>
-                    {{/if}}
-                    <form action="/products/delete/{{_id}}?_method=DELETE" method="POST">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                    </form>
 
-                </div>
-                <br>
-
+{{#each categories}}
+<div id="accordion" class="mx-auto" style="width: 80%;">
+    <div class="card bg-light">
+        <div class="card-header bg-white" id="headingOne">
+            <div class="d-flex align-content-between flex-wrap" style="justify-content: space-between">
+                <h3 class="d-flex mb-0 text-name-category">{{name}}</h3>
+                <h5 class="d-flex mb-0">
+                    <button class="d-flex btn btn-secondary btn-plus-category" data-toggle="collapse"
+                        data-target="#{{categoryName}}" aria-expanded="true" aria-controls="{{categoryName}}">
+                        <i class="fas fa-plus-circle fa-2x"></i>
+                    </button>
+                </h5>
             </div>
         </div>
-        <br>
+        <div id="{{categoryName}}" class="collapse border-light" aria-labelledby="headingOne" data-parent="#accordion">
+            <br>
+            <br>
+            <div class="row" style="width: 100%;">
+                <!--   MENU   -->
+                {{#each ../menu}}
+                    {{#ifEquals category ../categoryName}}
+                    <br>
+                    <div class="container col-md-4 mx-auto">
+                        <div class="card container d-flex" style="width: 18rem;">
+                            <img class="card-img-top p-1" src="{{imageUrl}}" alt="Foto">
+                            <div class="card-body">
+                                <h5 class="card-title">{{name}}</h5>
+                                <p class="card-text text-muted" style="font-family: Roboto;">{{description}}</p>
+                                <h4 class="text-success">$ {{price}}</h4>
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center container">
+                                    <a href="/products/edit/{{_id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"
+                                            style="color: #0d56f1; scale: 1.4" title="Editar"></i></a>
+                                    {{#if visible}}
+                                    <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-eye"
+                                                aria-hidden="true" title="Oculto"></i></button>
+                                    </form>
+                                    {{else}}
+                                    <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-eye-slash"
+                                                aria-hidden="true" title="Oculto"></i></button>
+                                    </form>
+                                    {{/if}}
+                                    <form action="/products/delete/{{_id}}?_method=DELETE" method="POST">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                                class="fa fa-trash"></i></button>
+                                    </form>
+
+                                </div>
+                                <br>
+
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <br>
+                    {{/ifEquals}}
+                {{/each}}
+
+                <!--   MENU   -->
+            </div>
+            <br>
+        </div>
     </div>
     <br>
-    {{/each}}
 </div>
-<br>
+{{/each}}
