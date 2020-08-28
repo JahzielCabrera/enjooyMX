@@ -38,6 +38,14 @@ const UserSchema = new Schema({
     account: {
         type: String,
         default: 'free'
+    }, 
+    token: {
+        token: {
+            type: String
+        }, 
+        expiration: {
+            type: Date
+        }
     }
 },
     {   timestamps: true,

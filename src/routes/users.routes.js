@@ -5,7 +5,11 @@ const { renderSignUpForm,
         signUp, 
         renderSignInForm, 
         signIn, 
-        logOut } = require('../controllers/users.controller')
+        logOut,
+        restorePasswordForm,
+        restorePassword, 
+        validateUrlResetPassword, 
+        updatePassword } = require('../controllers/users.controller')
 
 // SignUp
 router.get('/signup', renderSignUpForm);
@@ -17,5 +21,11 @@ router.post('/signin', signIn);
 
 // LogOut
 router.get('/logout', logOut);
+
+// Restore Password
+router.get('/restorepassword', restorePasswordForm);
+router.post('/restorepassword', restorePassword);
+router.get('/restorepassword/:token', validateUrlResetPassword);
+router.post('/restorepassword/:token', updatePassword);
 
 module.exports =  router;

@@ -114,7 +114,16 @@ section.portada{
   font-weight: 300;
   color: #fff;
 }
-
+.text-resetpassword{
+  font-size: 14px;
+  color: white;
+}
+.text-resetpassword:hover{
+  color: white;
+}
+.label-resetpassword{
+  width: 40%;
+}
   /* Hover Effects on Card */
   
   @media (min-width: 800px) {
