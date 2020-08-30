@@ -10,7 +10,6 @@ const session = require('express-session');
 const passport = require('passport');
 const helpers = require('./helpers/validateAuth');
 
-
 //Initializations
 const app = express();
 require('./config/passport');
@@ -31,6 +30,7 @@ app.set("view engine", ".hbs");
 
 //Middlewares
 app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 app.use(morgan('dev'));
 app.use(methodOverride('_method'));
 app.use(session({

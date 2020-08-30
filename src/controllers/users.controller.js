@@ -3,6 +3,8 @@ const userCtrl = {};
 const passport = require('passport');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const emailConfig = require('../config/email');
 
 userCtrl.renderSignUpForm = (req, res) => {
     res.render('users/signUp');
@@ -41,8 +43,79 @@ userCtrl.signUp = async (req, res, next) => {
             } else {
                 const newUser = new User({name, lastName, email, password, restaurantName, restaurantCategory});
                 newUser.password = await newUser.encryptPassword(password);
-                req.flash('alert_success', 'Has sido registrado correctamente')
+                req.flash('alert_success', `Has sido registrado correctamente. Enviamos un enlace de confirmación a ${email}, confirma tu cuenta para acceder.`);
                 await newUser.save();
+
+                // Create a URL to confirm email
+                const confirmURL = `http://${req.headers.host}/confirmaccount/${email}`;
+                console.log(confirmURL);
+
+                confirmAccountHTML = `
+
+                    <style>
+                        body {
+                            font-family: 'Roboto', sans-serif;
+                        }
+   
+                        h2 {
+                            font-size: 3rem;
+                            text-align: center;
+                        }
+   
+                        a {
+                            margin-top: 2rem;
+                            text-align: center;
+                            display: block;
+                            padding: 1.5rem 0;
+                            color: rgb(255, 255, 255);
+                            background-color: rgb(74, 105, 243);
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            text-decoration: none;
+                        }
+   
+                        p {
+                            line-height: 2;
+                        }
+                    </style>
+   
+                    <body>
+                        <h2>Confirma tu cuenta</h2>
+            
+                        <p>Hola ${name}, para accerder a todas las funciones de Menup debes confirmar tu correo. Por favor haz click en el siguiente
+                        botón. 
+                        <a href="${confirmURL}">Confirmar cuenta</a>
+                        </p>
+   
+                        <p>
+                        <p style="font-size: 12px">Si no puedes accerder al enlace, visita: ${confirmURL}</p>
+                        </p>
+   
+                        <p>
+                        Si tú no solicitaste este enlace puedes ignorarlo.
+                        </p>
+   
+                    </body>
+       
+                `;
+
+                const transporter = nodemailer.createTransport({
+                    host: emailConfig.host,
+                    port: emailConfig.port,
+                    auth: {
+                        user: emailConfig.user,
+                        pass: emailConfig.pass
+                    }
+                });
+
+                const info = await transporter.sendMail({
+                    from: 'Menup <no-reply@menup.com>',
+                    to: email,
+                    subject: 'Confirma tu cuenta Menup',
+                    html: confirmAccountHTML
+                });
+
+
                 res.redirect('/signin');
             }
         
@@ -51,6 +124,23 @@ userCtrl.signUp = async (req, res, next) => {
         console.log(err);
         next(); 
     }
+};
+
+userCtrl.confirmAccount = async (req, res) => {
+    const userConfirmEmail = await User.findOne({email: req.params.email});
+
+    if(!userConfirmEmail){
+        req.flash('error_msg', 'No válido, regístrate por favor');
+        res.redirect('/signup');
+    }
+    else{
+        userConfirmEmail.activeAccount = 1;
+        await userConfirmEmail.save();
+        req.flash('alert_success', '¡Cuenta activada! Ahora puedes ingresar a tu cuenta');
+        res.redirect('/signin');
+    }
+    
+   
 };
 
 userCtrl.renderSignInForm = (req,res) => {
@@ -88,7 +178,75 @@ userCtrl.restorePassword = async (req, res) => {
        await user_password.save();
 
        const resetUrl = `http://${req.headers.host}/restorepassword/${user_password.token.token}`;
+        
+       contentHTML = `
+
+        <style>
+            body {
+                font-family: 'Roboto', sans-serif;
+            }
+   
+            h2 {
+                font-size: 3rem;
+                text-align: center;
+            }
+   
+            a {
+                margin-top: 2rem;
+                text-align: center;
+                display: block;
+                padding: 1.5rem 0;
+                color: rgb(255, 255, 255);
+                background-color: rgb(74, 105, 243);
+                font-weight: bold;
+                text-transform: uppercase;
+                text-decoration: none;
+            }
+   
+            p {
+                line-height: 2;
+            }
+        </style>
+   
+        <body>
+            <h2>Reestablecer contraseña</h2>
+            
+            <p>Hola ${user_password.name}, has solicitado reestablecer la contraseña de tu cuenta. Por favor haz click en el siguiente
+                botón. 
+            <a href="${resetUrl}">Cambiar contraseña</a>
+            </p>
+   
+            <p>
+                Este enlace es temporal, si se vence puedes volver a generarlo.
+                <p style="font-size: 12px">Si no puedes accerder al enlace, visita: ${resetUrl}</p>
+            </p>
+   
+            <p>
+                Si tú no solicitaste este enlace puedes ignorarlo.
+            </p>
+   
+        </body>
+       
+       `;
+
+        const transporter = nodemailer.createTransport({
+            host: emailConfig.host,
+            port: emailConfig.port,
+            auth: {
+                user: emailConfig.user,
+                pass: emailConfig.pass
+            }
+        });
+
+        const info = await transporter.sendMail({
+            from: 'Menup <no-reply@menup.com>',
+            to: user_password.email,
+            subject: 'Cambia la contraseña de tu cuenta Menup',
+            html: contentHTML
+        });
+
        console.log(resetUrl);
+       console.log('Email sent', info.messageId);
        req.flash('alert_success', `Hemos enviado un correo a ${email}, revisa tu bandeja de entrada.`)
        res.redirect('/signin');
     }
@@ -125,9 +283,7 @@ userCtrl.updatePassword = async (req, res, next) => {
             console.log(password);
             const newPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
             //const user = await User.update({password: req.body.password});
-            await User.findByIdAndUpdate(user_password._id, {password: newPassword});
-            user_password.token.token = null;
-            user_password.token.expiration = null;
+            await User.findByIdAndUpdate(user_password._id, {password: newPassword, 'token.token': null, 'token.expiration': null});
             
         }
     } catch(err){

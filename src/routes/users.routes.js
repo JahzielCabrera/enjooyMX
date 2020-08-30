@@ -3,6 +3,7 @@ const router = Router();
 
 const { renderSignUpForm, 
         signUp, 
+        confirmAccount,
         renderSignInForm, 
         signIn, 
         logOut,
@@ -14,6 +15,9 @@ const { renderSignUpForm,
 // SignUp
 router.get('/signup', renderSignUpForm);
 router.post('/signup', signUp);
+
+// Confirm Email Account
+router.get('/confirmaccount/:email', confirmAccount);
 
 // SignIn
 router.get('/signin', renderSignInForm);

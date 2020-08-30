@@ -46,7 +46,11 @@ const UserSchema = new Schema({
         expiration: {
             type: Date
         }
-    }
+    },
+    activeAccount: {
+        type: Number,
+        default: 0
+    } 
 },
     {   timestamps: true,
         writeConcern: {

@@ -19,15 +19,17 @@ passport.use('local', new LocalStrategy({
 }, async (req, email, password, done) => {
         // Confirm email in database
 
-        const user = await User.findOne({ email: email} );
+        const user = await User.findOne({ email: email, activeAccount: 1} );
     
         if(!user){
-            return done(null, false, req.flash('error', 'Usuario no encontrado'));
+            return done(null, false, req.flash('error', 'Usuario no encontrado, regístrate o verifica tu cuenta'));
         } 
         if(!user.comparePassword(password)){
             return done(null, false, req.flash('error', 'Contraseña incorrecta'));
         }
         return done(null, user);
+
+
         // else {
         //     // match passwords
         //     console.log({user});
