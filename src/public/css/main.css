@@ -33,8 +33,14 @@ section .wave{
 section.pricing {
     background: #007bff;
     background: linear-gradient(to right, #0062E6, #33AEFF);
-    height: 1050px;
+    height: 1250px;
   }
+
+section.subscription{
+  background: #007bff;
+  background: linear-gradient(to right, #0062E6, #33AEFF);
+  height: 850px;
+}
   
   .pricing .card {
     border: none;
@@ -81,6 +87,51 @@ section.pricing {
     transition: all 0.2s;
   }
 
+  /*Subscription*/
+  .subscription .card {
+    border: none;
+    border-radius: 1rem;
+    transition: all 0.2s;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .subscription hr {
+    margin: 1.5rem 0;
+  }
+  
+  .subscription .card-title {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+  }
+  
+  .subscription .card-price {
+    font-size: 3rem;
+    margin: 0;
+  }
+  
+  .subscription .card-price .period {
+    font-size: 0.8rem;
+  }
+  
+  .subscription ul li {
+    margin-bottom: 1rem;
+  }
+  
+  .subscription .text-muted {
+    opacity: 0.7;
+  }
+  
+  .subscription .btn {
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    opacity: 0.7;
+    transition: all 0.2s;
+  }
   /* Portada menu */
 section.portada{
   width: 100%;
@@ -124,7 +175,63 @@ section.portada{
 .label-resetpassword{
   width: 40%;
 }
+.text-shadow {
+  text-shadow: 2px 2px 4px #000000;
+}
+.icon--hover:hover {
+  font-size: 25px;
+  text-shadow: 4px 4px 10px #000000;
+}
+.description--aboutus--footer {
+  width: 70%;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.09), 0 4px 10px 0 rgba(0, 0, 0, 0.09);
+  border: none;
+}
+.btn {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.09), 0 4px 10px 0 rgba(0, 0, 0, 0.09);
+  border: none;
+}
+footer {
+  margin-top: 8rem;
+}
+
+
+/* Animations */
+
+.hand-move {
+  position: relative;
+  animation-name: moveHand;
+  animation-duration: 0.8s; 
+  animation-iteration-count: infinite
+}
+
+@keyframes moveHand {
+  from {top: 0px}
+  to {top: 10px}
+}
+
   /* Hover Effects on Card */
+  @media(max-width: 1200px) {
+    section.pricing {
+      height: 1500px;
+    }
+  }
+
+  @media(max-width: 990px) {
+    section.pricing {
+      height: 3000px;
+    }
+  }
+  @media(max-width: 760px) {
+    section.pricing {
+      height: 3200px;
+    }
+    .description--aboutus--footer {
+      width: 100%;
+    }
+  }
   
   @media (min-width: 800px) {
     .pricing .card:hover {
@@ -135,11 +242,23 @@ section.portada{
     .pricing .card:hover .btn {
       opacity: 1;
     }
+
+    .subscription .card:hover {
+      margin-top: -.25rem;
+      margin-bottom: .25rem;
+      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+    }
+    .subscription .card:hover .btn {
+      opacity: 1;
+    }
   }
 
   @media (max-width: 500px) {
     section.pricing {
-      height: 2750px;
+      height: 3400px;
+    }
+    section.subscription {
+      height: 2350px;
     }
     h2.text-prices {
       font-size: 20px;
@@ -164,6 +283,25 @@ section.portada{
     }
     h3.text-name-category{
       font-size: 25px;
+    }
+    .description--aboutus--footer {
+      width: 100%;
+    }
+  }
+  @media(max-width: 450px){
+    section.pricing {
+      height: 3500px;
+    }
+  }
+  @media(max-width: 390px){
+    section.pricing {
+      height: 3600px;
+    }
+  }
+
+  @media(max-width: 350px){
+    section.pricing {
+      height: 4100px;
     }
   }
 

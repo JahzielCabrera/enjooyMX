@@ -1,1 +1,340 @@
-<h1>Aqui va el menu que el cliente va a ver</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- cambiar nombre restaurante y logo-->
+    <link rel="shortcut icon" href="/img/logo_icon.png" type="image/x-icon">
+    <title> Menú | restaruante Name </title>
+
+    <!--  FONTS  -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <!-- FONTAWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+    <!--  BOOTSTRAP  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/litera/bootstrap.min.css">
+</head>
+
+<body>
+    <style>
+        .portada-container {
+            width: 100%;
+            height: 12rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .logo-portada-container {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            padding: 20px;
+            margin-top: 0;
+        }
+
+        .logo-portada-container img {
+            width: 100%;
+
+        }
+
+        .text-portada-container {
+            color: rgb(252, 249, 249);
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        .text-portada-container h5 {
+            font-size: 20px;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        .text-portada-container p {
+            font-family: 'Roboto';
+            font-size: 14px;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        .text-menu-title {
+            font-weight: 100;
+            color: rgb(68, 66, 66);
+        }
+
+        .accordion {
+            margin: auto;
+            margin-top: 30px;
+            width: 85%;
+        }
+
+        .text-category {
+            color: #f8f5f5;
+            text-decoration: none;
+            font-size: 35px;
+            text-shadow: 2px 2px 4px #000000;
+            z-index: 2;
+        }
+
+        .card-header {
+            height: 200px;
+            background-color: #eae9eb;
+            background-position: center;
+            background-size: 100%;
+
+        }
+
+        .btn-link:hover {
+            text-decoration: none;
+        }
+
+        .card {
+            margin-top: 15px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 20px;
+        }
+
+        .btn-link {
+            height: 170px;
+        }
+
+        .product-description {
+            font-family: 'Roboto';
+        }
+
+        .promo-container {
+            height: 350px;
+            margin-bottom: 80px;
+
+        }
+
+        .promo-header {
+            color: rgb(68, 66, 66);
+            font-weight: 100;
+            text-align: center;
+        }
+
+        .promo-container-img {
+            width: 100%;
+            margin-top: 30px;
+
+        }
+
+        .promo-container-img img {
+            height: 300px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.377), 0 6px 20px 0 rgba(0, 0, 0, 0.356);
+            border-radius: 20px;
+        }
+
+        footer {
+            margin-bottom: 0;
+            height: 100px;
+            align-items: center;
+        }
+
+        .logo-poweredby {
+            float: left;
+            width: 25%;
+            height: 100px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        .logo-poweredby img {
+            width: 80%;
+        }
+
+        .social-media-icons {
+            float: left;
+            width: 50%;
+            color: #ffff;
+            text-shadow: 2px 2px 4px #000000;
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
+        .social-media-icons h5 {
+            font-weight: 100;
+            font-size: 1rem;
+        }
+
+        .social-media-icons-container {
+            position: absolute;
+            margin-left: 22%;
+
+
+        }
+
+        .social-media-icons-container div {
+            float: left;
+            margin: 10px;
+            margin-top: 0;
+
+        }
+
+        .facebook a {
+            color: #ffff;
+        }
+
+        .instagram a {
+            color: #ffff;
+        }
+
+        .logo-restaurant {
+            float: right;
+            width: 25%;
+            align-items: center;
+            height: 100px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        .logo-restaurant img {
+            width: 70%;
+        }
+
+        @media (max-width: 500px) {
+            .social-media-icons-container {
+                margin-left: 16%;
+            }
+
+            .text-menu-title {
+                font-size: 33px;
+            }
+
+            .promo-container {
+                margin-bottom: 20px;
+            }
+
+            .promo-header {
+                font-size: 33px;
+            }
+
+            .promo-container-img img {
+                height: 100%;
+            }
+
+            .logo-poweredby img {
+                width: 120%;
+            }
+        }
+    </style>
+
+    <div class="portada-container">
+        <div class="img-portada-container" style="background: -webkit-linear-gradient(to right, #ffffff41, #ffffff25), url(/img/portada.jpg); 
+                                                background: linear-gradient(to right,  #3f3e3e86, #3f3e3e86), url(/img/portada.jpg);
+                                                width: 100%;
+                                                height: 100%;
+                                                background-position: center;
+                                                display: block;
+                                                background-size: 100%;
+                                                ">
+        </div>
+        <div class="logo-portada-container">
+            <img src="/img/logo_menup2.png" alt="">
+        </div>
+        <div class="text-portada-container text-center">
+            <h5>{{sucursalRender.name}}</h5>
+            <p>{{sucursalRender.location.adress}}, {{sucursalRender.location.suburb}}, {{sucursalRender.location.city}},
+                {{sucursalRender.location.state}}</p>
+        </div>
+    </div>
+
+
+    <!--  Menu  -->
+    <h1 class="text-menu-title text-center p-4">Disfruta nuestros platillos</h1>
+
+    <div class="accordion" id="accordionExample">
+        {{#each categoriesMenu}}
+        <div class="card">
+            <div class="card-header" id="headingOne" style="background-image: url({{img}})">
+                <h2 class="mb-0 d-flex">
+                    <button class="btn btn-link btn-block text-left d-block" type="button" data-toggle="collapse"
+                        data-target="#{{categoryName}}" aria-expanded="true" aria-controls="{{categoryName}}">
+                        <h1 class="text-center text-category">{{name}}</h1>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="{{categoryName}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="row" style="width: 100%; margin-left:0px; margin-bottom:15px;">
+                    {{#each ../productsList}}
+                        {{#ifEquals category ../categoryName}}
+                        <div class="col-md-6 container mx-auto">
+                            <div class="card container d-flex " style="width: 16rem;">
+                                <img src="{{imageUrl}}"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{name}}</h5>
+                                    <p class="card-text text-muted product-description">{{description}}</p>
+                                    <h5 style="color: rgb(35, 163, 52);">$ {{price}} </h5>
+
+                                </div>
+                            </div>
+                        </div>
+                        {{/ifEquals}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+    <br>
+    <br>
+    {{#if sucursalRender.promo}}
+    <div class="promo-container container">
+        <h1 class="promo-header">Conóce nuestras promociones</h1>
+        <div class="promo-container-img container">
+            <img class="container"
+                src="{{sucursalRender.promo.img}}"
+                alt="{{sucursalRender.promo.description}}" style="background-color: {{userMenu.color}};">
+        </div>
+    </div>
+    {{/if}}
+    <footer style="background-color: {{userMenu.color}};">
+        <div class="footer-container">
+            <div class="logo-poweredby container">
+                <a href="/"><img src="/img/poweredbyMenup.png" alt=""></a>
+            </div>
+            <div class="social-media-icons">
+                <h5 style="font-family: 'Roboto';">Síguenos en nuestras redes sociales</h5>
+                <div class="social-media-icons-container">
+                    <div class="facebook">
+                        <a href="{{userMenu.socialNetworks.facebook}}"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                    <div class="instagram">
+                        <a href="{{userMenu.socialNetworks.instagram}}"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="logo-restaurant container">
+                <img src="/img/logo_menup2.png" alt="">
+            </div>
+        </div>
+    </footer>
+
+    <!--  BOOTSTRAP  -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+
+
+
+</html>

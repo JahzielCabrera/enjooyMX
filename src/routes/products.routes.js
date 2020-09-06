@@ -9,8 +9,8 @@ const {
     renderEditForm,   
     deleteProduct, 
     updateProduct,
-    changeVisibility 
-} = require('../controllers/products.controller');
+    changeVisibility,
+    renderClientView } = require('../controllers/products.controller');
 
 // New Product
 router.get('/products/add/:id', isAuthenticated, renderProductForm); //Send Form
@@ -27,4 +27,7 @@ router.put('/products/visibility/:id', isAuthenticated, changeVisibility);
 // Delete Products
 router.delete('/products/delete/:id', isAuthenticated, deleteProduct);
 
-module.exports = router;
+// Render view client menu
+router.get('/menu/:restaurantName/:id', renderClientView);
+
+module.exports = router; 

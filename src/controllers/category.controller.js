@@ -32,4 +32,8 @@ categoryCtrl.updateCategory = (req, res) => {
     res.send('Category was updated'); 
 };
 
+categoryCtrl.deleteCategory = (req, res) => {
+    res.send('Category Deleted!');
+}
+
 module.exports = categoryCtrl; 

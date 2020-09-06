@@ -16,11 +16,11 @@
                     <input type="decimal" step='any' name="price" class="form-control" placeholder="Precio" value="{{product.price}}"><br>
                 </div>
                 <label for="category" class="text-left align-left">Elige una categoria:</label>
-                <select id="category" name="category" class="text-left">
-                    <option value="bebidas_frias">Bebidas Frías</option>
-                    <option value="bebidas_calientes">Bebidas Calientes</option>
-                    <option value="carnes">Carnes</option>
-                    <option value="pastas">Pastas</option>
+                <select id="category" name="category" class="text-left" required>
+                    <option selected disabled value="---">Selecciona una</option>
+                    {{#each categories}}
+                    <option value="{{categoryName}}">{{name}}</option>
+                    {{/each}}
                 </select>
                 <div class="form-group">
                     <br>

@@ -1,0 +1,91 @@
+<!--  PRICE SECTION  -->
+<section class="subscription py-3" id="precios">
+    <h1 class="text-center text-white py-3">Elige el plan que se adapte a tus necesidades</h1>
+    <h2 class="text-center text-white text-prices" style="font-weight: 100; font-size: 30px;">Puedes actualizar o
+        cancelar en cualquier momento</h2>
+    <br>
+    <div class="container">
+        <div class="row">
+            <!-- Free Tier -->
+            <div class="col-lg-4">
+                <div class="card mb-5 mb-lg-0">
+                    <div class="card-body">
+                        <h5 class="card-title text-muted text-uppercase text-center">{{basic.subscriptionName}}</h5>
+                        <h6 class="card-price text-center">${{basic.subscriptionAmount}}<span class="period">/{{basic.subscriptionInterval}}</span></h6>
+                        <hr>
+                        <ul class="fa-ul">
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>1 sucursal</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Registro de hasta 50 platillos
+                            </li>
+                            <br>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Código QR genérico</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Oculta platillos cuando lo desees
+                            </li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Agregar imagenes de tus platos
+                            </li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Tarjeta con el nombre de tu
+                                restaurante y codigo QR lista para imprimir</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Tus clientes podrán ordenar desde
+                                su celular (PRÓXIMAMENTE)</li>
+                        </ul>
+                        <a href="/subscription/create/{{basic._id}}" class="btn btn-block btn-success text-uppercase">Seleccionar</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Basic Tier -->
+            <div class="col-lg-4">
+                <div class="card mb-5 mb-lg-0">
+                    <div class="card-body">
+                        <h5 class="card-title text-muted text-uppercase text-center">{{intermediate.subscriptionName}}</h5>
+                        <h6 class="card-price text-center">${{intermediate.subscriptionAmount}}<span class="period">/{{intermediate.subscriptionInterval}}</span></h6>
+                        <hr>
+                        <ul class="fa-ul">
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>3 sucursales</strong>
+                            </li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Registro de hasta <strong>70
+                                    platillos por sucursal</strong></li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Código QR personalizado</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Oculta platillos cuando lo desees
+                            </li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Agregar imagenes de tus platos
+                            </li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Tarjeta con el nombre de tu
+                                restaurante y codigo QR lista para imprimir</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Tus clientes podrán ordenar desde
+                                su celular (PRÓXIMAMENTE)</li>
+                        </ul>
+                        <a href="/subscription/create/{{intermediate._id}}" class="btn btn-block btn-success text-uppercase">Seleccionar</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Advance Tier -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-muted text-uppercase text-center">{{advance.subscriptionName}}</h5>
+                        <h6 class="card-price text-center">${{advance.subscriptionAmount}}<span class="period">/{{advance.subscriptionInterval}}</span></h6>
+                        <hr>
+                        <ul class="fa-ul">
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>10 sucursales</strong>
+                            </li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Registro de hasta <strong>100
+                                    platillos por sucursal</strong></li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Código QR personalizado</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Oculta platillos cuando lo desees
+                            </li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Agregar imagenes de tus platos
+                            </li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Tarjeta con el nombre de tu
+                                restaurante y codigo QR lista para imprimir</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Tus clientes podrán ordenar desde
+                                su celular (PRÓXIMAMENTE)</li>
+                        </ul>
+                        <a href="/subscription/create/{{advance._id}}" class="btn btn-block btn-success text-uppercase">Seleccionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</section>
+

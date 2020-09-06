@@ -8,7 +8,7 @@
 
 <h1 class="text-center container py-5">Regístrate en menup</h1>
 
-<form class="register-form container" style="width: 70%; " action="/signup" method="POST">
+<form class="register-form container" style="width: 70%; " action="/signup" method="POST" id="signup-form">
     <div class="form-row">
         <div class="col-md-6 mb-3">
             <label for="validationServer01">Ingresa tu nombre</label>
@@ -21,7 +21,7 @@
     </div>
     <div class="form-row py-1">
         <label for="">Ingresa tu email</label>
-        <input type="email" name="email" class="form-control" placeholder="tuemail@service.com" value="{{email}}" required>
+        <input id="email" type="email" name="email" class="form-control" placeholder="tuemail@service.com" value="{{email}}" required>
     </div>
     <br>
     <div class="form-row">
@@ -66,9 +66,42 @@
         </div>
     </div>
     <div class="align-items-center container">
-        <button class="btn btn-success" type="submit">Registrarme</button>
+        <button id="email-submit" class="btn btn-success" type="submit">Registrarme</button>
     </div>
 </form>
 <br>
 <br>
 <br>
+
+<script>
+      function createCustomer() {
+        let billingEmail = document.querySelector('#email').value;
+        return fetch('/create-customer', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: billingEmail,
+          }),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            // result.customer.id is used to map back to the customer object
+            // result.setupIntent.client_secret is used to create the payment method
+            return result;
+          });
+      }
+​
+      let signupForm = document.getElementById('signup-form');
+​
+      signupForm.addEventListener('submit', function (evt) {
+        evt.preventDefault();
+        // Create Stripe customer
+        createCustomer().then((result) => {
+          customer = result.customer;
+        });
+      });
+    </script>

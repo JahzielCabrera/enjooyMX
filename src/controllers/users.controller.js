@@ -5,14 +5,17 @@ const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const emailConfig = require('../config/email');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 userCtrl.renderSignUpForm = (req, res) => {
     res.render('users/signUp');
 };
 
 const User = require('../models/User');
+const Subscription = require('../models/Subscription');
 const { reset } = require('nodemon');
 const { connection } = require('mongoose');
+const { user } = require('../config/email');
 
 userCtrl.signUp = async (req, res, next) => {
     try{
@@ -41,7 +44,8 @@ userCtrl.signUp = async (req, res, next) => {
                 req.flash('error_msg', 'Este correo ya ha sido registrado');
                 res.redirect('/signup');
             } else {
-                const newUser = new User({name, lastName, email, password, restaurantName, restaurantCategory});
+                const customer = await stripe.customers.create({email: email, preferred_locales: ['es']});
+                const newUser = new User({name, lastName, email, password, restaurantName, restaurantCategory, stripeCustomerId: customer.id});
                 newUser.password = await newUser.encryptPassword(password);
                 req.flash('alert_success', `Has sido registrado correctamente. Enviamos un enlace de confirmación a ${email}, confirma tu cuenta para acceder.`);
                 await newUser.save();
@@ -293,5 +297,123 @@ userCtrl.updatePassword = async (req, res, next) => {
     req.flash('alert_success', 'Contraseña actualizada con éxito');
     res.redirect('/signin');
 };
+
+
+userCtrl.stripeWebHooks = async (req, res) => {
+        // Retrieve the event by verifying the signature using the raw body and secret.
+        let event;
+    
+        try {
+          event = stripe.webhooks.constructEvent(
+            req.body,
+            req.headers['stripe-signature'],
+            process.env.STRIPE_WEBHOOK_SECRET
+          );
+        } catch (err) {
+          console.log(err);
+          console.log(`⚠️  Webhook signature verification failed.`);
+          console.log(
+            `⚠️  Check the env file and enter the correct webhook secret.`
+          );
+          return res.sendStatus(400);
+        }
+        // Extract the object from the event.
+        const dataObject = event.data.object;
+        
+        console.log(dataObject);
+        // Handle the event
+        // Review important events for Billing webhooks
+        // https://stripe.com/docs/billing/webhooks
+        // Remove comment to see the various objects sent for this sample
+        switch (event.type) {
+          case 'invoice.paid':
+            // Used to provision services after the trial has ended.
+            // The status of the invoice will show up as paid. Store the status in your
+            // database to reference when a user accesses your service to avoid hitting rate limits.
+
+            res.send('Paid successs')
+            break;
+          case 'invoice.payment_failed':
+            // If the payment fails or the customer does not have a valid payment method,
+            //  an invoice.payment_failed event is sent, the subscription becomes past_due.
+            // Use this webhook to notify your user that their payment has
+            // failed and to retrieve new card details.
+            break;
+          case 'invoice.finalized':
+            // If you want to manually send out invoices to your customers
+            // or store them locally to reference to avoid hitting Stripe rate limits.
+            break;
+          case 'customer.subscription.deleted':
+            if (event.request != null) {
+              // handle a subscription cancelled by your request
+              // from above.
+            } else {
+              // handle subscription cancelled automatically based
+              // upon your subscription settings.
+            }
+            break;
+          case 'customer.subscription.trial_will_end':
+            if (event.request != null) {
+              // handle a subscription cancelled by your request
+              // from above.
+            } else {
+              // handle subscription cancelled automatically based
+              // upon your subscription settings.
+            }
+            break;
+          default:
+          // Unexpected event type 
+        }
+        res.sendStatus(200);
+}
+
+userCtrl.renderSubscriptions = async (req, res) => {
+    const basic = await Subscription.findOne({subscriptionName: 'Básico'}).lean();
+    const intermediate = await Subscription.findOne({subscriptionName: 'Intermedio'}).lean();
+    const advance = await Subscription.findOne({subscriptionName: 'Avanzado'}).lean();
+    res.render('users/subscriptionPayment', {basic, intermediate, advance});
+}
+
+userCtrl.paymentInfo = async (req, res) => {
+    const user = req.user;
+    const user_json = user.toJSON();
+    console.log(user.toJSON());
+    const subscription = await Subscription.findById(req.params.id).lean();
+    res.render('users/paymentForm', {subscription, user_json});
+}
+
+userCtrl.createSubscription = async (req, res) => {
+    console.log(`PaymenthMethodId: ${req.body.paymentMethodId}`);
+    console.log(`CustomerId: ${req.body.customerId}`);
+    try {
+        await stripe.paymentMethods.attach(req.body.paymentMethodId, {
+            customer: req.body.customerId,
+        });
+    } catch (error) {
+            return res.status('402').send({ error: { message: error.message } });
+    }
+    
+      // Change the default invoice settings on the customer to the new payment method
+    await stripe.customers.update(
+        req.body.customerId,
+        {
+          invoice_settings: {
+            default_payment_method: req.body.paymentMethodId,
+          },
+        }
+    );
+    
+    // Create the subscription
+    const subscription = await stripe.subscriptions.create({
+        customer: req.body.customerId,
+        items: [{ price: req.body.priceId}],
+        expand: ['latest_invoice.payment_intent'],
+    });
+
+    console.log(subscription.latest_invoice.payment_intent.status);
+
+}
+
+    
 
 module.exports = userCtrl;

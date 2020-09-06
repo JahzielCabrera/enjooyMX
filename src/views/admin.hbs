@@ -7,6 +7,13 @@
 
 <br>
 <br>
+{{#if sucursales}}
+
+{{else}}
+        <h4 class="text-center" style="font-weight: 100; color: rgb(85, 83, 83);">Comienza agregando una sucursal</h4>
+        <h4 class="text-center hand-move">👇🏼</h4>
+{{/if}}
+
 <div class="row" style="width: 100%;">
     <br>
     {{#each sucursales}}
@@ -34,17 +41,18 @@
     {{/each}}
     <br>
 
+    
 
     <div class="container col-md-4 mx-auto">
         <br>
         <br>
-        <a href="/sucursal/new">
+        <a href="/sucursal/new" style="text-decoration: none;">
             <div class="card container d-flex" style="width: 18rem;">
                 <img class="card-img-top p-4" src="/img/logo_menup2.png" alt="Foto">
                 <div class="card-body container text-center">
                     <i class="fas fa-plus fa-3x container" style="color: rgb(44, 124, 243);"></i>
                     <hr>
-                    <h4 class="text-center text-success">Agregar sucursal</h4>
+                    <h4 class="text-center text-success" >Agregar sucursal</h4>
                 </div>
                 <br> 
 

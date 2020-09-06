@@ -6,7 +6,8 @@ const {
     renderNewCategory,
     createNewCategory, 
     renderEditCategory,
-    updateCategory
+    updateCategory,
+    deleteCategory
 } = require('../controllers/category.controller');
 
 // New category
@@ -16,5 +17,8 @@ router.post('/category/new/:id', isAuthenticated, createNewCategory);
 // Edit category
 router.get('/category/edit/:id', isAuthenticated, renderEditCategory);
 router.post('/category/edit/:id', isAuthenticated, updateCategory);
+
+// Delete category
+router.delete('/category/detele', isAuthenticated, deleteCategory);
 
 module.exports = router;  

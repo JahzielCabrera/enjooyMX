@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const helpers = require('./helpers/validateAuth');
+const { all } = require('./routes/index.routes');
 
 //Initializations
 const app = express();

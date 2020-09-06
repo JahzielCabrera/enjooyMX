@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const router = Router();
+const bodyParser = require('body-parser');
+const {isAuthenticated} = require('../helpers/validateAuth');
 
 const { renderSignUpForm, 
         signUp, 
@@ -10,7 +12,12 @@ const { renderSignUpForm,
         restorePasswordForm,
         restorePassword, 
         validateUrlResetPassword, 
-        updatePassword } = require('../controllers/users.controller')
+        updatePassword,
+        stripeWebHooks,
+        renderSubscriptions,
+        createSubscription, 
+        paymentInfo,
+        renderTest } = require('../controllers/users.controller')
 
 // SignUp
 router.get('/signup', renderSignUpForm);
@@ -32,4 +39,12 @@ router.post('/restorepassword', restorePassword);
 router.get('/restorepassword/:token', validateUrlResetPassword);
 router.post('/restorepassword/:token', updatePassword);
 
-module.exports =  router;
+// Subscriptions
+router.post('/stripewh', bodyParser.raw({ type: 'application/json' }), stripeWebHooks);
+router.get('/subscriptions', isAuthenticated, renderSubscriptions);
+
+// Payments
+router.get('/subscription/create/:id', isAuthenticated, paymentInfo);
+router.post('/subscription/create', isAuthenticated, createSubscription);
+
+module.exports =  router; 

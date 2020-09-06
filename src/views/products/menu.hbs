@@ -9,17 +9,39 @@
 <nav class="navbar navbar-light navbar-expand navbar-light px-5" style="background-color: #0496ff;">
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link text-white" href="/products/add/{{sucursal._id}}" style="font-size: 17px;">Agregar
-                    producto <i class="fas fa-plus-circle"></i></a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link text-white" href="/category/new/{{sucursal._id}}" style="font-size: 17px;">Agregar
                     categoría <i class="fas fa-plus-circle"></i></a>
             </li>
+            {{#if categories}}
+            <li class="nav-item active">
+                <a class="nav-link text-white" href="/products/add/{{sucursal._id}}" style="font-size: 17px;">Agregar
+                    producto <i class="fas fa-plus-circle"></i></a>
+            </li>
+            {{/if}}
         </ul>
     </div>
 </nav>
+
+{{#if categories}}
+    {{#if menu}}
+
+    {{else}}
+        <h4 class="text-left hand-move" style="margin-left: 260px;">👆🏼</h4>
+        <div class="container" style="width: 60%;">
+            <h4 class="text-center py-5" style="font-weight: 100; color: rgb(85, 83, 83);">¡Muy bien {{user.name}}! Ahora agrega un producto</h4>
+        </div>  
+    {{/if}}
+
+{{else}}
+    <h4 class="text-left hand-move" style="margin-left: 110px;">👆🏼</h4>
+    <div class="container" style="width: 50%;">
+        <h4 class="text-center py-5" style="font-weight: 100; color: rgb(85, 83, 83);">Ahora agrega una categoría</h4>
+    </div>  
+{{/if}}
+
+
+
 <br>
 <br>
 
@@ -47,7 +69,7 @@
                     <br>
                     <div class="container col-md-4 mx-auto">
                         <div class="card container d-flex" style="width: 18rem;">
-                            <img class="card-img-top p-1" src="{{imageUrl}}" alt="Foto">
+                            <img class="card-img-top p-1" src="{{imageUrl}}" alt="Imagen Producto">
                             <div class="card-body">
                                 <h5 class="card-title">{{name}}</h5>
                                 <p class="card-text text-muted" style="font-family: Roboto;">{{description}}</p>

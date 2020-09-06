@@ -50,6 +50,36 @@ const UserSchema = new Schema({
     activeAccount: {
         type: Number,
         default: 0
+    },
+    stripeCustomerId: {
+        type: String
+    },
+    color: {
+        type: String,
+        default: '#3B5BF7'
+    },
+    accountLimits: {
+        limitSucursals: {
+            type: Number,
+            default: 1
+        },
+        limitDishes: {
+            type: Number,
+            default: 20
+        }
+    },
+    subscriptionEndDate: {
+        type: Date
+    }, 
+    socialNetworks: {
+        facebook: {
+            type: String,
+            default: 'https://www.facebook.com'
+        },
+        instagram: {
+            type: String,
+            default: 'https://www.instagram.com'
+        }
     } 
 },
     {   timestamps: true,

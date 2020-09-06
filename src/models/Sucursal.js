@@ -30,6 +30,21 @@ const SucursalSchema = new Schema({
     restaurantName: {
         type: String, 
         required: true
+    },
+    promo: {
+        img: {
+            type: String
+        },
+        description: {
+            type: String
+        },
+        endDate: {
+            type: Date
+        }
+    },
+    titleMenu: {
+        type: String,
+        default: 'Disfruta nuestros platillos'
     }
 }, {
     timestamps: true
