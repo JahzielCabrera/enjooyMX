@@ -4,7 +4,8 @@
         background: linear-gradient(to right, #04bcd4, #1680f8);
         color: black;
     }
-    .label-text{
+
+    .label-text {
         font-size: 14px;
     }
 </style>
@@ -16,16 +17,30 @@
             <h3>Crea una nueva categoría de tus productos</h3>
         </div>
         <br>
-        <div class="card-body text-left">
-            <form action="/category/new/{{id}}" method="POST">
+        <div class="card-body text-left"> 
+            <form action="/category/new/{{id}}" method="POST" enctype="multipart/form-data">
                 <div class="form-group py-2">
-                    <label class="text-left label-text"for="exampleInputEmail1">Ingresa el nombre de la categoría</label>
-                    <input type="text" name="name" class="form-control" placeholder="ej: Bebidas Calientes" required autofocus>
+                    <label class="text-left label-text" for="exampleInputEmail1">Ingresa el nombre de la
+                        categoría</label>
+                    <input id="name" type="text" name="name" class="form-control" placeholder="ej: Bebidas Calientes" required
+                        autofocus>
+                </div>
+                <label class="text-left label-text">Selecciona una foto</label>
+                <div class="input-group mb-2">
+                    <div class="custom-file">
+                        <input type="file" name="image" class="custom-file text-muted p-1" accept="image/*"
+                            onchange="loadImage(event)" required>
+                    </div>
+                </div>
+                <div class="container p-3">
+                    <img class="imgloaded" id="output" width="100%">
                 </div>
                 <div class="form-group py-2">
-                    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    <button type="submit" class="btn btn-primary btn-block" onclick="sendImg()" id="button-send">Enviar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script src="/js/preloadImages.js"></script>

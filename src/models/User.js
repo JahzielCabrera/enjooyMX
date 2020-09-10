@@ -31,10 +31,16 @@ const UserSchema = new Schema({
         type: String,
         default: '/img/logo_menup2.png',
     }, 
+    logo_public_id: {
+        type: String
+    },
     portada: {
         type: String,
         default: '/img/portada.jpg'
-    }, 
+    },
+    portada_public_id: {
+        type: String
+    },
     account: {
         type: String,
         default: 'free'

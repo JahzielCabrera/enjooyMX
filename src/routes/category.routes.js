@@ -16,9 +16,9 @@ router.post('/category/new/:id', isAuthenticated, createNewCategory);
 
 // Edit category
 router.get('/category/edit/:id', isAuthenticated, renderEditCategory);
-router.post('/category/edit/:id', isAuthenticated, updateCategory);
+router.put('/category/edit/:id', isAuthenticated, updateCategory);
 
 // Delete category
-router.delete('/category/detele', isAuthenticated, deleteCategory);
+router.delete('/category/delete/:id', isAuthenticated, deleteCategory);
 
 module.exports = router;  

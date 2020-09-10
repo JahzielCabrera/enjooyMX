@@ -10,8 +10,8 @@
 {{#if sucursales}}
 
 {{else}}
-        <h4 class="text-center" style="font-weight: 100; color: rgb(85, 83, 83);">Comienza agregando una sucursal</h4>
-        <h4 class="text-center hand-move">👇🏼</h4>
+<h4 class="text-center" style="font-weight: 100; color: rgb(85, 83, 83);">Comienza agregando una sucursal</h4>
+<h4 class="text-center hand-move">👇🏼</h4>
 {{/if}}
 
 <div class="row" style="width: 100%;">
@@ -22,18 +22,20 @@
             <img class="card-img-top p-4" src="/img/logo_menup2.png" alt="Foto">
             <div class="card-body">
                 <h5 class="card-title text-center">{{name}}</h5>
-                <p class="card-text text-muted" style="font-family: Roboto;">{{location.adress}}, {{location.suburb}}, {{location.city}}, {{location.state}}</p>
+                <p class="card-text text-muted" style="font-family: Roboto;">{{location.adress}}, {{location.suburb}},
+                    {{location.city}}, {{location.state}}</p>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center container">
                     <a href="/sucursal/edit/{{_id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"
                             style="color: #0d56f1; scale: 1.4" title="Editar"></i></a>
 
-                    <a href="/menu/{{_id}}"><button type="submit" class="btn btn-success btn-sm">Administrar menú</button></a>
+                    <a href="/menu/{{_id}}"><button type="submit" class="btn btn-success btn-sm">Administrar
+                            menú</button></a>
 
                 </div>
                 <br>
 
-            </div> 
+            </div>
         </div>
         <br>
 
@@ -41,7 +43,7 @@
     {{/each}}
     <br>
 
-    
+
 
     <div class="container col-md-4 mx-auto">
         <br>
@@ -52,9 +54,9 @@
                 <div class="card-body container text-center">
                     <i class="fas fa-plus fa-3x container" style="color: rgb(44, 124, 243);"></i>
                     <hr>
-                    <h4 class="text-center text-success" >Agregar sucursal</h4>
+                    <h4 class="text-center text-success">Agregar sucursal</h4>
                 </div>
-                <br> 
+                <br>
 
             </div>
         </a>

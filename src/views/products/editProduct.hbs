@@ -1,32 +1,94 @@
+<style>
+    body {
+        background: #007bff;
+        background: linear-gradient(to right, #04bcd4, #1680f8);
+        color: black;
+    }
+</style>
+
 <div class="col-md-4 mx-auto my-5">
     <div class="card text-center border-white">
         <div class="card-header bg-transparent border-white">
-            <h3>Editar producto</h3> 
+            <h3>Editar producto</h3>
         </div>
         <div class="card-body">
-            <form action="/products/edit/{{product._id}}?_method=PUT" method="POST">
+            <form action="/products/edit/{{product._id}}?_method=PUT" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Nombre del producto" value="{{product.name}}" autofocus>
+                    <input id="name" type="text" name="name" class="form-control" placeholder="Nombre del producto"
+                        value="{{product.name}}" autofocus>
                 </div>
                 <div class="form-group">
-                    <textarea name="description" class="form-control" , placeholder="Description">{{product.description}}</textarea>
-                </div> 
-                <div class="form-group">
-                    <input type="decimal" step='any' name="price" class="form-control" placeholder="Precio" value="{{product.price}}"><br>
+                    <textarea name="description" class="form-control" ,
+                        placeholder="Description">{{product.description}}</textarea>
                 </div>
-                <label for="category" class="text-left align-left">Elige una categoria:</label>
-                <select id="category" name="category" class="text-left" required>
-                    <option selected disabled value="---">Selecciona una</option>
-                    {{#each categories}}
-                    <option value="{{categoryName}}">{{name}}</option>
-                    {{/each}}
-                </select>
                 <div class="form-group">
-                    <br>
-                    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    <input type="decimal" name="price" class="form-control" placeholder="Precio"
+                        value="{{product.price}}">
+                </div>
+                <div class="d-block text-left py-2">
+                    <label for="category" class="text-left align-left">Elige una categoria:</label>
+                    <select id="category" name="category" class="text-left" onchange="optionSelected(event)" required>
+                        <option selected disabled value="empty">Selecciona una</option>
+                        {{#each categories}}
+                        <option value="{{categoryName}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <label class="text-left d-block label-text mt-3">Selecciona una nueva foto</label>
+                <div class="input-group mb-2">
+                    <div class="custom-file">
+                        <input type="file" name="image" class="custom-file text-muted p-1" accept="image/*"
+                            onchange="previewImage(event)">
+                    </div>
+                </div>
+                <div class="container p-2">
+                    <img id="img-old" src="{{product.imageUrl}}" alt="{{product.name}}" width="100%">
+                </div>
+                <div class="container p-3">
+                    <img src="" class="imgloaded" id="output" width="100%">
+                </div>
+                <div class="form-group py-2">
+                    <button type="submit" class="btn btn-primary btn-block" onclick="sendImg()"
+                        id="button-send">Enviar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+
+    const name = document.getElementById('name').value;
+    const selectCategory = document.getElementById('category');
+    const btn = document.getElementById('button-send');
+
+    var option = ''
+
+    var optionSelected = function(event){
+        console.log(selectCategory.value);
+        return option = selectCategory.value;
+    }
+
+    var sendImg = function () {
+        if (name.length == 0 || option.length == 0) {
+            console.log('Fields are empy');
+            location.reload();
+        }
+        btn.form.submit();
+        btn.disabled = true;
+        btn.innerText = '';
+        btn.innerText = 'Enviando...';
+    }
+
+    var previewImage = function (event) {
+        document.getElementById('img-old').style.display = 'none';
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
+</script>

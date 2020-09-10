@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const morgan = require('morgan');
+const multer = require('multer');
 const methodOverride = require('method-override');
 const util = require('util');
 const eventEmiter = require('events');
@@ -33,6 +34,13 @@ app.set("view engine", ".hbs");
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(morgan('dev'));
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, 'public/uploads'),
+    filename: (req, file, cb) => {
+        cb(null, new Date().getTime() + path.extname(file.originalname));
+    }
+});
+app.use(multer({storage}).fields([{name: 'image'}, {name: 'portada'}]));
 app.use(methodOverride('_method'));
 app.use(session({
     secret: 'secret',

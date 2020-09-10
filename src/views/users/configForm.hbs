@@ -1,0 +1,272 @@
+<style>
+    body {
+        background: #007bff;
+        /*background: linear-gradient(to right, #04bcd4, #1680f8);*/
+        color: black;
+    }
+
+    .label-text {
+        font-size: 16px;
+    }
+
+    .container-color-picker {
+        background-color: #007bff;
+        width: 40px;
+        animation-name: color_change;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+
+
+    @-webkit-keyframes color_change {
+        from {
+            border:3px solid rgb(0, 81, 255);
+        }
+
+        to {
+            border:3px solid rgb(255, 255, 255);
+        }
+    }
+
+    @-moz-keyframes color_change {
+        from {
+            border:3px solid rgb(0, 81, 255);
+        }
+
+        to {
+            border:3px solid rgb(255, 255, 255);
+        }
+    }
+
+    @-ms-keyframes color_change {
+       from {
+            border:3px solid rgb(0, 81, 255);
+        }
+
+        to {
+            border:3px solid rgb(255, 255, 255);
+        }
+    }
+
+    @-o-keyframes color_change {
+        from {
+            border:3px solid rgb(0, 81, 255);
+        }
+
+        to {
+            border:3px solid rgb(255, 255, 255);
+        }
+    }
+
+    @keyframes color_change {
+        from {
+            border:3px solid rgb(0, 81, 255);
+        }
+
+        to {
+            border:3px solid rgb(255, 255, 255);
+        }
+    }
+</style>
+
+<div class="col-md-6 mx-auto my-5 py-5">
+    <div class="card text-center border-white">
+        <div class="card-header bg-transparent border-white">
+            <h3>Configuración de la cuenta</h3>
+        </div>
+        <br>
+        <div class="card-body text-left">
+            <form action="/config?_method=PUT" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="form-group py-2">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-1">
+                            <label class="text-left label-text">Nombre</label>
+                            <input type="text" id="name" name="name" class="form-control " placeholder="Nombre(s)"
+                                value="{{#each user}}{{this.name}}{{/each}}" required autofocus>
+                        </div>
+                        <div class="col-md-6 mb-1">
+                            <label for="validationServer02" class="label-text">Apellidos</label>
+                            <input type="text" name="lastName" class="form-control " id="validationServer02"
+                                placeholder="Apellidos" value="{{#each user}}{{this.lastName}}{{/each}}" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="text-left label-text">Nombre de tu restaurante</label>
+                    <input type="text" name="restaurantName" class="form-control" placeholder="Restaurante"
+                        value="{{#each user}}{{this.restaurantName}}{{/each}}" required>
+                </div>
+                <div class="form-group py-2">
+                    <label class="text-left label-text">Logotipo de tu restaurante</label>
+                    <div class="custom-file">
+                        <input type="file" name="image" class="custom-file text-muted p-1" accept="image/*"
+                            onchange="previewImageLogo(event)" id="logo">
+                    </div>
+                </div>
+
+                <div class="container p-2 d-block">
+                    <img id="img-old-logo" src="{{#each user}}{{this.logo}}{{/each}}" alt="logo" width="50%"
+                        style="box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+                </div>
+                <div class="container p-3">
+                    <img src="" class="imgloaded" id="output-logo" width="100%">
+                </div>
+                <div class="form-group py-2">
+                    <label class="text-left label-text">Portada de tu restaurante</label>
+                    <div class="custom-file">
+                        <input type="file" name="portada" class="custom-file text-muted p-1" accept="image/*"
+                            onchange="previewImagePortada(event)" id="portada">
+                    </div>
+                </div>
+                <div class="container p-2 container">
+                    <img id="img-old-portada" src="{{#each user}}{{this.portada}}{{/each}}" alt="logo" width="50%"
+                        style="box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);">
+                </div>
+                <div class="container p-3">
+                    <img src="" class="imgloaded" id="output-portada" width="100%">
+                </div>
+
+
+                <div class="color-selector">
+                    <label class="text-left label-text">Color que identifica a tu restaurante</label>
+                    <div class="container-color-picker mb-4">
+                        <div class="color-picker"></div>
+                    </div>
+                </div>
+                <input id="input-color" name="color" type="hidden" value="{{#each user}}{{this.color}}{{/each}}">
+                <br>
+                <label class="text-left label-text py-1" for="exampleInputEmail1">Redes sociales</label>
+                <div class="form-group">
+                    <div class="form-row ">
+                        <div class="col-md-3 p-2 align-middle">
+                            <br>
+                            <i class="fab fa-facebook float-right mr-3 align-middle facebook-icon" style="font-size: 38px;
+                                                                  background: -webkit-linear-gradient(#194bb8, #0249e2);
+                                                                  -webkit-background-clip: text;
+                                                                  -webkit-text-fill-color: transparent;"></i>
+                        </div>
+                        <div class="col-md-9 p-1">
+                            <input type="text" name="facebook" class="form-control mt-3" placeholder="Facebook"
+                                value="{{#each user}}{{this.socialNetworks.facebook}}{{/each}}" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3 p-2">
+                            <br>
+                            <i class="fab fa-instagram float-right mr-3 align-middle instagram-icon" style="font-size: 40px;
+                                                                  background: -webkit-linear-gradient(#ae2bfa, #f37711);
+                                                                  -webkit-background-clip: text;
+                                                                  -webkit-text-fill-color: transparent;"></i>
+                        </div>
+                        <div class="col-md-9 p-1">
+                            <input type="text" name="instagram" class="form-control mt-3" placeholder="Facebook"
+                                value="{{#each user}}{{this.socialNetworks.instagram}}{{/each}}" required>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group py-2 container" style="width: 80%;">
+                    <button type="submit" class="btn btn-primary btn-block" id='button-send' onclick="sendImg()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+
+<script>
+
+    const name = document.getElementById('name').value;
+    const btn = document.getElementById('button-send');
+
+    var sendImg = function () {
+        if (name.length == 0) {
+            console.log('Fields are empy');
+            location.reload();
+        }
+        btn.form.submit();
+        btn.disabled = true;
+        btn.innerText = '';
+        btn.innerText = 'Guardando...';
+    }
+
+    var previewImageLogo = function (event) {
+        document.getElementById('img-old-logo').style.display = 'none';
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output-logo');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
+    var previewImagePortada = function (event) {
+        document.getElementById('img-old-portada').style.display = 'none';
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output-portada');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
+    // Color picker 
+    const pickr = Pickr.create({
+        el: '.color-picker',
+        theme: 'monolith', // or 'monolith', or 'nano' or 'classic'
+
+        default: '#007bff',
+        position: 'bottom-middle',
+        components: {
+
+            // Main components
+            preview: true,
+            hue: true,
+
+            // Input / output Options
+            interaction: {
+                input: true,
+                save: true
+            }
+        },
+        i18n: {
+
+            // Strings visible in the UI
+            'ui:dialog': 'color picker dialog',
+            'btn:toggle': 'toggle color picker dialog',
+            'btn:swatch': 'color swatch',
+            'btn:last-color': 'use previous color',
+            'btn:save': 'Guardar',
+            'btn:cancel': 'Cancelar',
+            'btn:clear': 'Limpiar',
+
+            // Strings used for aria-labels
+            'aria:btn:save': 'save and close',
+            'aria:btn:cancel': 'cancel and close',
+            'aria:btn:clear': 'clear and close',
+            'aria:input': 'color input field',
+            'aria:palette': 'color selection area',
+            'aria:hue': 'hue selection slider',
+            'aria:opacity': 'selection slider'
+        }
+    });
+
+
+    pickr.on('change', (...args) => {
+        let color = args[0].toHEXA();
+        console.log(`Color >>>  ${color}`);
+        //this.bell.style.color = color;
+        document.body.style.backgroundColor = color;
+        document.getElementById("input-color").value = color;
+        btn.style.backgroundColor = color;
+
+    });
+
+
+</script>

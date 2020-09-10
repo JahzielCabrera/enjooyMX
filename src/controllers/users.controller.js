@@ -7,15 +7,29 @@ const nodemailer = require('nodemailer');
 const emailConfig = require('../config/email');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-userCtrl.renderSignUpForm = (req, res) => {
-    res.render('users/signUp');
-};
-
 const User = require('../models/User');
 const Subscription = require('../models/Subscription');
 const { reset } = require('nodemon');
 const { connection } = require('mongoose');
 const { user } = require('../config/email');
+const cloudinary = require('cloudinary');
+const fs = require('fs-extra');
+const { exists } = require('../models/User');
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+userCtrl.renderSignUpForm = (req, res) => {
+    if(!req.user){
+        res.render('users/signUp');
+    } else{
+        res.redirect('/admin');
+    }
+    
+};
 
 userCtrl.signUp = async (req, res, next) => {
     try{
@@ -148,7 +162,11 @@ userCtrl.confirmAccount = async (req, res) => {
 };
 
 userCtrl.renderSignInForm = (req,res) => {
-    res.render('users/signIn');
+    if(!req.user){
+        res.render('users/signIn');
+    } else {
+        res.redirect('/admin');
+    }
 };
 
 userCtrl.signIn = passport.authenticate('local', {
@@ -414,6 +432,68 @@ userCtrl.createSubscription = async (req, res) => {
 
 }
 
-    
+userCtrl.renderMySubscriptionForm = (req, res) => {
+    res.render('users/mySubscription');
+}
+
+
+userCtrl.renderChangeSubscriptionForm = (req, res) => {
+    res.render('users/changeSubscription');
+}
+
+userCtrl.updateSubscription = (req, res) => {
+    res.send('Subscription Updated 😨')
+}
+
+userCtrl.deleteSubscription = (req, res) => {
+    res.send('Subscription Deleted 😡');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+userCtrl.renderConfigForm = (req, res) => {
+    res.render('users/configForm');
+}
+
+userCtrl.updateConfig = async (req, res) => {
+    const { name, lastName, restaurantName, color, facebook, instagram } = req.body;
+    const userConfig = await User.findById(req.user.id);
+    userConfig.name = name;
+    userConfig.lastName = lastName;
+    userConfig.restaurantName = restaurantName;
+    userConfig.color = color;
+    userConfig.socialNetworks.facebook = facebook;
+    userConfig.socialNetworks.instagram = instagram;
+    if(req.files.image){
+        if(userConfig.logo_public_id){
+            await cloudinary.v2.uploader.destroy(userConfig.logo_public_id);
+        }
+        const resLogo = await cloudinary.v2.uploader.upload(req.files.image[0].path);
+        userConfig.logo = resLogo.secure_url;
+        userConfig.logo_public_id = resLogo.public_id;
+        await fs.unlink(req.files.image[0].path);
+    } 
+    if(req.files.portada){
+        if(userConfig.portada_public_id){
+            await cloudinary.v2.uploader.destroy(userConfig.portada_public_id);
+        }
+        const resPortada = await cloudinary.v2.uploader.upload(req.files.portada[0].path, {width: 1000});
+        userConfig.portada = resPortada.secure_url;
+        userConfig.portada_public_id = resPortada.public_id;
+        await fs.unlink(req.files.portada[0].path);
+    }
+    await userConfig.save();
+    req.flash('success_msg', 'Información actualizada con éxito 👽');
+    res.redirect('/admin');
+}
 
 module.exports = userCtrl;

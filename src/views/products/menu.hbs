@@ -1,4 +1,4 @@
-<section class="textos-portada portada">
+<section class="textos-portada portada text-shadow">
     <h1>Administra tu menup</h1>
     <h3>{{user.restaurantName}}</h3>
     <h5 class="text-white">{{sucursal.name}}</h5>
@@ -19,25 +19,29 @@
                     producto <i class="fas fa-plus-circle"></i></a>
             </li>
             {{/if}}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/promo/new/{{sucursal._id}}" style="font-size: 17px;">Agregar promoción <i class="fas fa-plus-circle"></i></a>
+            </li>
         </ul>
     </div>
 </nav>
 
 {{#if categories}}
-    {{#if menu}}
-
-    {{else}}
-        <h4 class="text-left hand-move" style="margin-left: 260px;">👆🏼</h4>
-        <div class="container" style="width: 60%;">
-            <h4 class="text-center py-5" style="font-weight: 100; color: rgb(85, 83, 83);">¡Muy bien {{user.name}}! Ahora agrega un producto</h4>
-        </div>  
-    {{/if}}
+{{#if menu}}
 
 {{else}}
-    <h4 class="text-left hand-move" style="margin-left: 110px;">👆🏼</h4>
-    <div class="container" style="width: 50%;">
-        <h4 class="text-center py-5" style="font-weight: 100; color: rgb(85, 83, 83);">Ahora agrega una categoría</h4>
-    </div>  
+<h4 class="text-left hand-move" style="margin-left: 260px;">👆🏼</h4>
+<div class="container" style="width: 60%;">
+    <h4 class="text-center py-5" style="font-weight: 100; color: rgb(85, 83, 83);">¡Muy bien {{user.name}}! Ahora agrega
+        un producto</h4>
+</div>
+{{/if}}
+
+{{else}}
+<h4 class="text-left hand-move" style="margin-left: 110px;">👆🏼</h4>
+<div class="container" style="width: 50%;">
+    <h4 class="text-center py-5" style="font-weight: 100; color: rgb(85, 83, 83);">Agrega una categoría</h4>
+</div>
 {{/if}}
 
 
@@ -45,67 +49,101 @@
 <br>
 <br>
 
-{{#each categories}}
-<div id="accordion" class="mx-auto" style="width: 80%;">
-    <div class="card bg-light">
-        <div class="card-header bg-white" id="headingOne">
-            <div class="d-flex align-content-between flex-wrap" style="justify-content: space-between">
-                <h3 class="d-flex mb-0 text-name-category">{{name}}</h3>
-                <h5 class="d-flex mb-0">
-                    <button class="d-flex btn btn-secondary btn-plus-category" data-toggle="collapse"
-                        data-target="#{{categoryName}}" aria-expanded="true" aria-controls="{{categoryName}}">
-                        <i class="fas fa-plus-circle fa-2x"></i>
-                    </button>
-                </h5>
+<div id="accordion" class="mx-auto" style="width: 85%;">
+    {{#each categories}}
+    <div class="card">
+        <div class="card-header card-header-bg" id="headingOne" style="background-image: url({{img}});">
+            <h2 class="d-flex mb-0">
+                <button class="btn btn-link btn-block text-left d-block" type="button" data-toggle="collapse"
+                    data-target="#{{categoryName}}" aria-expanded="true" aria-controls="{{categoryName}}">
+                    <h1 class="text-center text-category">{{name}}</h1>
+                </button>
+            </h2>
+            <div class="d-flex justify-content-between align-items-center container mt-2">
+                <a class="ml-auto mr-4 edit-icon" href="/category/edit/{{_id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"
+                        title="Editar"></i></a>
+           
+                <button type="submit" class="btn btn-danger btn-sm" data-toggle="modal"
+                    data-target="#delateModal{{categoryName}}">Eliminar</button>
             </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="delateModal{{categoryName}}" tabindex="-1" aria-labelledby="delateModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">¿Deseas eliminar {{name}}?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Al eliminar la categoría <strong> {{name}}</strong> se eliminaran todos los platillos que contiene. 
+                            <br>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="/category/delete/{{_id}}?_method=DELETE" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                            <button type="button" class="btn btn-primary"  data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+
         </div>
-        <div id="{{categoryName}}" class="collapse border-light" aria-labelledby="headingOne" data-parent="#accordion">
+        <div id="{{categoryName}}" class="collapse border-light show" aria-labelledby="headingOne"
+            data-parent="#accordion">
             <br>
             <br>
             <div class="row" style="width: 100%;">
                 <!--   MENU   -->
                 {{#each ../menu}}
-                    {{#ifEquals category ../categoryName}}
-                    <br>
-                    <div class="container col-md-4 mx-auto">
-                        <div class="card container d-flex" style="width: 18rem;">
-                            <img class="card-img-top p-1" src="{{imageUrl}}" alt="Imagen Producto">
-                            <div class="card-body">
-                                <h5 class="card-title">{{name}}</h5>
-                                <p class="card-text text-muted" style="font-family: Roboto;">{{description}}</p>
-                                <h4 class="text-success">$ {{price}}</h4>
-                                <hr>
-                                <div class="d-flex justify-content-between align-items-center container">
-                                    <a href="/products/edit/{{_id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"
-                                            style="color: #0d56f1; scale: 1.4" title="Editar"></i></a>
-                                    {{#if visible}}
-                                    <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
-                                        <input type="hidden" name="_method" value="PUT">
-                                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-eye"
-                                                aria-hidden="true" title="Oculto"></i></button>
-                                    </form>
-                                    {{else}}
-                                    <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
-                                        <input type="hidden" name="_method" value="PUT">
-                                        <button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-eye-slash"
-                                                aria-hidden="true" title="Oculto"></i></button>
-                                    </form>
-                                    {{/if}}
-                                    <form action="/products/delete/{{_id}}?_method=DELETE" method="POST">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger btn-sm"><i
-                                                class="fa fa-trash"></i></button>
-                                    </form>
-
-                                </div>
-                                <br>
+                {{#ifEquals category ../categoryName}}
+                <br>
+                <div class="container col-md-4 mx-auto">
+                    <div class="card m-auto d-flex" style="width: 14rem;">
+                        <img class="card-img-top p-1" src="{{imageUrl}}" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                            <p class="card-text text-muted" style="font-family: Roboto;">{{description}}</p>
+                            <h4 class="text-success">$ {{price}}</h4>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center container">
+                                <a href="/products/edit/{{_id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"
+                                        style="color: #0d56f1; scale: 1.4" title="Editar"></i></a>
+                                {{#if visible}}
+                                <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-eye"
+                                            aria-hidden="true" title="Oculto"></i></button>
+                                </form>
+                                {{else}}
+                                <form action="/products/visibility/{{_id}}?_method=PUT" method="POST">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-eye-slash"
+                                            aria-hidden="true" title="Oculto"></i></button>
+                                </form>
+                                {{/if}}
+                                <form action="/products/delete/{{_id}}?_method=DELETE" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                            class="fa fa-trash"></i></button>
+                                </form>
 
                             </div>
+                            <br>
+
                         </div>
-                        <br>
                     </div>
                     <br>
-                    {{/ifEquals}}
+                </div>
+                <br>
+                {{/ifEquals}}
                 {{/each}}
 
                 <!--   MENU   -->
@@ -114,5 +152,7 @@
         </div>
     </div>
     <br>
+    {{/each}}
 </div>
-{{/each}}
+
+

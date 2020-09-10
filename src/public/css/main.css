@@ -42,6 +42,11 @@ section.subscription{
   height: 850px;
 }
   
+.pricing-muted-price {
+  color: rgb(216, 211, 211);
+  text-decoration: line-through;
+  text-align: center;
+}
   .pricing .card {
     border: none;
     border-radius: 1rem;
@@ -197,6 +202,36 @@ footer {
   margin-top: 8rem;
 }
 
+.text-category {
+  color: #f8f5f5;
+  text-decoration: none;
+  font-size: 35px;
+  text-shadow: 2px 2px 4px #000000;
+  z-index: 2;
+}
+.btn-link {
+  height: 170px;
+}
+.btn-link:hover {
+  text-decoration: none;
+}
+.card-header-bg {
+  height: 230px;
+  background-color: #eae9eb;
+  background-position: center;
+  background-size: 100%;
+}
+.edit-icon {
+  text-shadow: 2px 2px 4px #000000;
+  color: #ebebeb; 
+  scale: 1.2;
+}
+.edit-icon:hover {
+  color: #eae9eb;
+  text-decoration: none;
+  scale: 1.4;
+}
+
 
 /* Animations */
 
@@ -222,6 +257,12 @@ footer {
   @media(max-width: 990px) {
     section.pricing {
       height: 3000px;
+    }
+    .facebook-icon{
+      float: left;
+    }
+    .instagram-icon{
+      float: left;
     }
   }
   @media(max-width: 760px) {

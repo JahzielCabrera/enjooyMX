@@ -35,11 +35,17 @@ const SucursalSchema = new Schema({
         img: {
             type: String
         },
+        title: {
+            type: String
+        },
         description: {
             type: String
         },
         endDate: {
             type: Date
+        }, 
+        cloudinary_publicId: {
+            type: String
         }
     },
     titleMenu: {
@@ -47,7 +53,12 @@ const SucursalSchema = new Schema({
         default: 'Disfruta nuestros platillos'
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    writeConcern: {
+        w: 'majority',
+        j: true,
+        wtimeout: 5000
+      }
 });
 
 module.exports = model('Sucursal', SucursalSchema);

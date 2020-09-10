@@ -15,14 +15,21 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-cog"></i> Ajustes
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/sucursal/new">Agregar sucursal</a>
-                        <a class="dropdown-item" href="/admin">Cambiar logo</a>
-                        <a class="dropdown-item" href="/admin">Cambiar foto de portada</a>
-                        <a class="dropdown-item" href="/admin">Cambiar mis datos</a>
+                    <div class="dropdown-menu" style="box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" aria-labelledby="navbarDropdown">
+                        <span class="dropdown-item"><strong>¡Hola {{#each user}}{{this.name}}{{/each}}!</strong></span>
+                        <span class="dropdown-item text-muted text-uppercase" style="font-size: 14px;">{{#each user}}{{account}}{{/each}}</span>
+                        <a class="dropdown-item" style="color: rgb(8, 90, 243);" href="/admin">Ver sucursales</a>
+                        <hr class="m-auto" style="width: 85%;">
+                        <div class="mt-2 mb-3">
+                            <a class="dropdown-item" href="/sucursal/new"></a>
+                            <a class="dropdown-item" href="/config">Configuración</a>
+                            <a class="dropdown-item" href="/subscriptions/my-subscription">Suscripción</a>
+                        </div>
+                        <hr class="m-auto" style="width: 85%;">
+                        <a class="dropdown-item" href="/logout" style="color: rgb(226, 46, 46)">Cerrar sesión <i class="fas fa-sign-out-alt"></i> </a>
                     </div>
                 </li>
-                <a class="nav-link" href="/logout">Cerrar sesión <i class="fas fa-sign-out-alt"></i> </a>
+                
                 {{else}}
                 <a class="nav-link" href="/">Inicio</a>
                 <a class="nav-link" href="/#beneficios">Beneficios</a>

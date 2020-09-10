@@ -135,6 +135,7 @@
             margin-bottom: 0;
             height: 100px;
             align-items: center;
+            margin-bottom: 0;
         }
 
         .logo-poweredby {
@@ -229,8 +230,8 @@
     </style>
 
     <div class="portada-container">
-        <div class="img-portada-container" style="background: -webkit-linear-gradient(to right, #ffffff41, #ffffff25), url(/img/portada.jpg); 
-                                                background: linear-gradient(to right,  #3f3e3e86, #3f3e3e86), url(/img/portada.jpg);
+        <div class="img-portada-container" style="background: -webkit-linear-gradient(to right, #ffffff41, #ffffff25), url({{userMenu.portada}}); 
+                                                background: linear-gradient(to right,  #3f3e3e86, #3f3e3e86), url({{userMenu.portada}});
                                                 width: 100%;
                                                 height: 100%;
                                                 background-position: center;
@@ -239,7 +240,7 @@
                                                 ">
         </div>
         <div class="logo-portada-container">
-            <img src="/img/logo_menup2.png" alt="">
+            <img src="{{userMenu.logo}}" alt="">
         </div>
         <div class="text-portada-container text-center">
             <h5>{{sucursalRender.name}}</h5>
@@ -289,7 +290,7 @@
     </div>
 
     <br>
-    <br>
+    <br> 
     {{#if sucursalRender.promo}}
     <div class="promo-container container">
         <h1 class="promo-header">Conóce nuestras promociones</h1>
@@ -317,7 +318,7 @@
                 </div>
             </div>
             <div class="logo-restaurant container">
-                <img src="/img/logo_menup2.png" alt="">
+                <img src="{{userMenu.logo}}" alt="">
             </div>
         </div>
     </footer>

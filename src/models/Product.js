@@ -14,8 +14,7 @@ const ProductSchema = new Schema({
         required: true
     }, 
     imageUrl: {
-        type: String,
-        default: 'https://s1.eestatic.com/2020/01/22/cocinillas/recetas/pasta-y-arroz/Espaguetis-Salmon-Queso_Philadelphia-Pasta_y_arroz_461715202_143042655_1706x960.jpg'
+        type: String
     },
     visible: {
         type: Boolean,
@@ -36,9 +35,17 @@ const ProductSchema = new Schema({
     sucursalId: {
         type: String, 
         required: true
+    },
+    cloudinary_public_id: {
+        type: String
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    writeConcern: {
+        w: 'majority',
+        j: true,
+        wtimeout: 5000
+      }
 });
 
 module.exports = model('Product', ProductSchema);

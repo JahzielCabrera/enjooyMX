@@ -17,7 +17,13 @@ const { renderSignUpForm,
         renderSubscriptions,
         createSubscription, 
         paymentInfo,
-        renderTest } = require('../controllers/users.controller')
+        renderMySubscriptionForm,
+        renderChangeSubscriptionForm,
+        updateSubscription,
+        deleteSubscription,
+        renderConfigForm,
+        updateConfig
+ } = require('../controllers/users.controller')
 
 // SignUp
 router.get('/signup', renderSignUpForm);
@@ -43,8 +49,22 @@ router.post('/restorepassword/:token', updatePassword);
 router.post('/stripewh', bodyParser.raw({ type: 'application/json' }), stripeWebHooks);
 router.get('/subscriptions', isAuthenticated, renderSubscriptions);
 
+// Render Subscription Info 
+router.get('/subscriptions/my-subscription', isAuthenticated, renderMySubscriptionForm);
+
+// Update Subscription
+router.get('/subscriptions/update', isAuthenticated, renderChangeSubscriptionForm);
+router.post('/subscriptions/update', isAuthenticated, updateSubscription);
+
+// Delete Subscription 
+router.post('/subscription/delete', isAuthenticated, deleteSubscription);
+
 // Payments
 router.get('/subscription/create/:id', isAuthenticated, paymentInfo);
 router.post('/subscription/create', isAuthenticated, createSubscription);
+
+// Config
+router.get('/config', isAuthenticated, renderConfigForm);
+router.put('/config', isAuthenticated, updateConfig);
 
 module.exports =  router; 

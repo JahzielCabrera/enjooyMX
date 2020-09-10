@@ -1,0 +1,83 @@
+<style>
+    body {
+        background: #007bff;
+        background: linear-gradient(to right, #04bcd4, #1680f8);
+        color: black;
+    }
+</style>
+
+<div class="col-md-4 mx-auto my-5">
+    <div class="card text-center border-white">
+        <div class="card-header bg-transparent border-white">
+            <h3>Agregar promoción</h3>
+        </div>
+        <div class="card-body">
+            <form action="/promo/new/{{id}}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" name="title" class="form-control" placeholder="Titulo de la promoción" id="title"
+                        required autofocus>
+                </div>
+                <div class="form-group">
+                    <textarea name="description" class="form-control" , placeholder="Descripción" id="description" required></textarea>
+                </div>
+
+                <div class="text-left">
+                    <label>¿Qué día termina la promoción?</label>
+                    <input class="btn" type="date" required="true" value="" min="" max="2022-31-12" id="date-selector" name="date">
+                </div>
+
+                <label class="text-left d-block label-text mt-3">Selecciona una foto</label>
+                <div class="input-group mb-2">
+                    <div class="custom-file">
+                        <input type="file" name="image" class="custom-file text-muted p-1" accept="image/*"
+                            onchange="loadImage(event)" required="true">
+                    </div>
+                </div>
+                <div class="container p-3">
+                    <img class="imgloaded" id="output" width="100%">
+                </div>
+
+                <div class="form-group py-2">
+                    <button type="submit" class="btn btn-primary btn-block" onclick="sendImg()"
+                        id="button-send">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    Date.prototype.toDateInputValue = (function () {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0, 10);
+    });
+
+    document.getElementById('date-selector').value = new Date().toDateInputValue();
+    console.log(document.getElementById('date-selector').min = new Date().toDateInputValue());
+
+
+    var loadImage = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const btn = document.getElementById('button-send');
+
+    var sendImg = function () {
+        if (title.length == 0 || description.length == 0) {
+            console.log('Fields are empy');
+            location.reload();
+        }
+        btn.form.submit();
+        btn.disabled = true;
+        btn.innerText = '';
+        btn.innerText = 'Enviando...';
+    }
+</script>

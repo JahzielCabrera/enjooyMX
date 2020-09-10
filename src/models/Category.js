@@ -19,7 +19,15 @@ const CategorySchema = new Schema({
     }, 
     img: {
         type: String, 
-        default: '/img/categoryDefault.jpg'
+    },
+    cloudinary_publicId: {
+        type: String,
+    }
+}, {
+    writeConcern: {
+        w: 'majority',
+        j: true,
+        wtimeout: 5000
     }
 });
 

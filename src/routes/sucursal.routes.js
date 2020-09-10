@@ -7,7 +7,9 @@ const {
     createNewSucursal,
     renderPanelAdmin,
     renderEditSucursal,
-    updateSucursal
+    updateSucursal, 
+    renderPromo, 
+    createPromo
 } = require('../controllers/sucursal.controller');
 
 // new sucursal
@@ -20,6 +22,10 @@ router.put('/sucursal/edit/:id', isAuthenticated, updateSucursal);
 
 // panel admin 
 router.get('/admin', isAuthenticated, renderPanelAdmin); 
+
+// create Promo
+router.get('/promo/new/:id', isAuthenticated, renderPromo);
+router.post('/promo/new/:id', isAuthenticated, createPromo);
 
 module.exports = router;
 
