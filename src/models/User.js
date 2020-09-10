@@ -43,7 +43,7 @@ const UserSchema = new Schema({
     },
     account: {
         type: String,
-        default: 'free'
+        default: 'gratuito'
     }, 
     token: {
         token: {
@@ -71,7 +71,7 @@ const UserSchema = new Schema({
         },
         limitDishes: {
             type: Number,
-            default: 20
+            default: 10
         }
     },
     subscriptionEndDate: {
