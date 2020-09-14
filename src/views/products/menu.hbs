@@ -1,5 +1,18 @@
-<section class="textos-portada portada text-shadow">
-    <h1>Administra tu menup</h1>
+<style>
+    section.portada{
+        
+}
+</style>
+
+<section class="textos-portada text-shadow" style="width: 100%;
+                                                           height: 250px;
+                                                           background:{{user.color}};
+                                                           background: -webkit-linear-gradient(to right, #52505041, #52505041), url({{user.portada}}); 
+                                                           background: linear-gradient(to right, #52505041, #52505041), url({{user.portada}});
+                                                           background-position: center;
+                                                           display: block;
+                                                           background-size: 100%;">
+    <h1>Administra tu enjooy</h1>
     <h3>{{user.restaurantName}}</h3>
     <h5 class="text-white">{{sucursal.name}}</h5>
     <p class="text-white" style="font-family: Roboto;">{{sucursal.location.adress}}, {{sucursal.location.suburb}},

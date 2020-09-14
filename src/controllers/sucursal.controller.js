@@ -1,5 +1,6 @@
 const sucursalCtrl = {};
 const Sucursal = require('../models/Sucursal');
+const User = require('../models/User');
 const cloudinary = require('cloudinary');
 const fs = require('fs-extra');
 
@@ -35,8 +36,10 @@ sucursalCtrl.createNewSucursal = async (req, res, next) => {
 };
 
 sucursalCtrl.renderPanelAdmin = async (req, res) => {
+    const userSucursal = await User.findById(req.user.id).lean();
+    console.log(userSucursal);
     const sucursales = await Sucursal.find({userId: req.user.id}).lean();
-    res.render('admin', {sucursales});
+    res.render('admin', {sucursales, userSucursal});
 };
 
 sucursalCtrl.renderEditSucursal = async (req, res, next) => {

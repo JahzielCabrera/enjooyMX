@@ -22,7 +22,7 @@
 
 <div class="container text-center margin-auto" id="beneficios">
     <br>
-    <h1 class="container">Conoce los beneficios de usar <span style="color: #0029ff;">menup</span></h1>
+    <h1 class="container">Conoce los beneficios de usar <span style="color: #0056ff; font-family: 'Comfortaa'">enjooy</span></h1>
 </div>
 <br>
 <br>
@@ -119,7 +119,7 @@
               <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Agregar imagenes de tus platos</li>
               <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Tarjeta con el nombre de tu restaurante y codigo QR lista para imprimir</li>
               <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Tus clientes podrán ordenar desde su celular (PRÓXIMAMENTE)</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Acceso a herramienta menupBI, herramienta de Bussines Intelligence para analizar tus ventas (PRÓXIMAMENTE)</li>
+              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Acceso a herramienta enjooyBI, herramienta de Bussines Intelligence para analizar tus ventas (PRÓXIMAMENTE)</li>
             </ul>
             <a href="/signup" class="btn btn-block btn-success text-uppercase">Seleccionar</a>
           </div>
@@ -142,7 +142,7 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span>Agregar imagenes de tus platillos</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span>Tarjeta con el nombre de tu restaurante y codigo QR lista para imprimir</li>
               <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Tus clientes podrán ordenar desde su celular (PRÓXIMAMENTE)</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Acceso a herramienta menupBI, herramienta de Bussines Intelligence para analizar tus ventas (PRÓXIMAMENTE)</li>
+              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Acceso a herramienta enjooyBI, herramienta de Bussines Intelligence para analizar tus ventas (PRÓXIMAMENTE)</li>
             </ul>
             <a href="/signup" class="btn btn-block btn-success text-uppercase">Seleccionar</a>
           </div>
@@ -165,7 +165,7 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span>Agregar imagenes a tus platillos</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span>Tarjeta con el nombre de tu restaurante y código QR lista para imprimir</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span>Tus clientes podran ordenar desde su celular (PRÓXIMAMENTE)</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Acceso a herramienta menupBI, herramienta de Bussines Intelligence para analizar tus ventas (PRÓXIMAMENTE)</li>
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>Acceso a herramienta enjooyBI, herramienta de Bussines Intelligence para analizar tus ventas (PRÓXIMAMENTE)</li>
             </ul>
             <a href="/signup" class="btn btn-block btn-success text-uppercase">Seleccionar</a>
           </div>
@@ -188,7 +188,7 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span>Agregar imagenes a tus platillos</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span>Tarjeta con el nombre de tu restaurante y código QR lista para imprimir</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span>Tus clientes podran ordenar desde su celular (PRÓXIMAMENTE)</li>
-              <li><span class="fa-li"><i class="fas fa-check"></i></span>Acceso a herramienta menupBI, herramienta de Bussines Intelligence para analizar tus ventas (PRÓXIMAMENTE)</li>
+              <li><span class="fa-li"><i class="fas fa-check"></i></span>Acceso a herramienta enjooyBI, herramienta de Bussines Intelligence para analizar tus ventas (PRÓXIMAMENTE)</li>
             </ul>
             <a href="/signup" class="btn btn-block btn-success text-uppercase">Seleccionar</a>
           </div>
@@ -201,6 +201,163 @@
 </section>
 
 
-<br>
-<br>
-<br>
+<style>
+  .box-message {
+    position: fixed;
+    width: 260px; 
+    height: 250px;
+    right: 20px;
+    bottom: 100px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.09), 0 4px 10px 0 rgba(0, 0, 0, 0.09);
+    background-color: #fff;
+    border-radius: 20px;
+    z-index: 5000;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-delay: 1s;
+  }
+
+  .circle-active{
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #04d331;
+    border: 0.5px solid #93b4a1;
+  }
+  .text-circle-active {
+    float: left;
+    font-size: 10px;
+    margin-left: 3px;
+    margin-top: 8px;
+  }
+  .button-close-message {
+    float: right;
+    width: 15px;
+    height: 15px;
+    background-color: rgb(161, 161, 161);
+    margin-top: 8px;
+    margin-right: 12px;
+    border-radius: 50%;
+    color: #000;
+    font-size: 10px;
+    color: #fff;
+    border: none;
+  }
+  .hr-box {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(250, 248, 248, 0.01);
+    margin-top: 27px;
+  }
+  .img-avatar {
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  .box-hello-message {
+    padding: 1px 1px 1px 1px;
+    margin-left: auto;
+    margin-right: 10px;
+    width: 190px;
+    height: 150px;
+    background-color: rgb(236, 235, 235);
+    border-radius: 10px;
+    font-size: 13px;
+  }
+  .text-hello {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  .input-text {
+    float: left;
+    padding: 2px 2px 2px 2px;
+    font-size: 14px;
+    width: 180px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(226, 226, 226);
+    margin-top: 15px;
+    margin-left: 20px;
+    outline: none;
+  }
+  .btn-send {
+    float: right;
+    width: 30px;
+    height: 30px;
+    border: none;
+    padding-right: 2px;
+    color: white;
+    font-size: 15px;
+    border-radius: 50%;
+    background-color: rgb(0, 207, 10);
+    margin-top: 12px;
+    margin-right: 15px;
+    text-align: center;
+    outline: none;
+  }
+  .btn-send:hover {
+    background-color: rgb(30, 160, 36);
+  }
+  </style>
+
+<div class="box-message">
+  <div class="box-message-header">
+      <div class="circle-active"></div>
+      <div class="text-circle-active"><span>Activo ahora</span></div>
+      <button class="button-close-message">&times;</button>
+  </div>
+  <hr class="hr-box">
+  <div class="img-avatar">
+    <img src="https://pbs.twimg.com/profile_images/1191584517749764096/cBj9gg7i_400x400.jpg" alt="" width="100%">
+  </div>
+  <div class="box-hello-message">
+      <div class="text-hello">
+        <span>Hola 👋, soy Jahziel Cabrera, CEO de Enjooy.
+            ¿Tienes preguntas acerca de nuestros productos? Escríbeme un mensaje, estoy aquí para ayudarte!
+        </span>
+      </div>
+  </div>
+  <div class="input-message">
+    <input type="text" class="input-text" placeholder="   Escribe tu mensaje">
+    <button type="submit" class="btn-send"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+
+<a href="https://api.whatsapp.com/send?phone=+522281495452&text=Hola 👋! Quiero recibir mas información sobre sus productos 🤖" class="float-whatsapp" target="_blank">
+<i class="fab fa-whatsapp my-float"></i>
+</a>
+
+<script>
+  const box = document.querySelector(".box-message");
+  box.style.display = 'none';
+  setTimeout(()=>{
+    box.style.display = ''
+  }, 2000)
+
+  const btnSend = document.querySelector(".btn-send");
+  const btnClose = document.querySelector(".button-close-message");
+  const inputMessage = document.querySelector('.input-text');
+  btnSend.style.display = 'none';
+
+  console.log(btnClose);
+  btnClose.addEventListener("click", function(){box.style.display = 'none'});
+
+  inputMessage.addEventListener('keyup', function(){
+    if(inputMessage.value.length > 0){
+      btnSend.style.display = '';
+    }
+  })
+
+  btnSend.addEventListener('click', function() {
+    window.location.href = `https://api.whatsapp.com/send?phone=+522281495452&text=${inputMessage.value}`
+  })
+
+</script>

@@ -15,7 +15,9 @@ const { renderSignUpForm,
         updatePassword,
         stripeWebHooks,
         renderSubscriptions,
-        createSubscription, 
+        createSubscription,
+        retryInvoice,
+        saveSubscriptiomInfo,
         paymentInfo,
         renderMySubscriptionForm,
         renderChangeSubscriptionForm,
@@ -51,6 +53,10 @@ router.get('/subscriptions', isAuthenticated, renderSubscriptions);
 
 // Render Subscription Info 
 router.get('/subscriptions/my-subscription', isAuthenticated, renderMySubscriptionForm);
+router.get('/subscription/create', isAuthenticated, saveSubscriptiomInfo);
+
+// Retry Invoice 
+router.post('/subscription/retry-invoice', isAuthenticated, retryInvoice);
 
 // Update Subscription
 router.get('/subscriptions/update', isAuthenticated, renderChangeSubscriptionForm);

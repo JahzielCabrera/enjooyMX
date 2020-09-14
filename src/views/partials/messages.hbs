@@ -1,18 +1,79 @@
+
 {{#if success_msg}}
-<div data-delay='10000' aria-live="polite" aria-atomic="true" style="position: relative; min-height: 100px;" class="py-3 px-5 mx-5">
-    <div class="toast item-align-right" style="position: absolute; right: 0; min-weight: 100px" role="alert" aria-live="assertive"
-        aria-atomic="true" data-delay="8000">
-        <div class="toast-header" style="background-color: rgb(28, 142, 207);">
-            <img src="/img/logo_icon.png" class="rounded mr-2" alt="logo menup">
-            <strong class="mr-auto" style="color: white; opacity: 1;">menup</strong>
-            <small style="color: white; opacity: 1;">Ahora</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true" style="color: white; opacity: 1;">&times;</span>
-            </button>
+<style>
+    .notification-process {
+        position: fixed;
+        height: 90px;
+        width: 280px;
+        top: 20px;
+        right: 30px;
+        background-color: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.09), 0 4px 10px 0 rgba(0, 0, 0, 0.09);
+        border-radius: 15px;
+        z-index: 5000;
+    }
+    .notification-process-logo {
+        float: left;
+        margin-top: 5px;
+        margin-left: 10px;
+        width: 20px;
+        height: 20px;
+    }
+    .text-notification-process-logo{
+        float: left;
+        font-size: 12px;
+        margin-top: 8px;
+        margin-left: 5px;
+        color: rgb(117, 114, 114);
+    }
+    .btn-close-notification-process {
+        float: right;
+        width: 18px;
+        height: 18px;
+        margin-top: 5px;
+        margin-right: 8px;
+        border-radius: 50%;
+        background-color: rgb(161, 161, 161);
+        border: none;
+        font-size: 12px;
+        color: white;
+        outline: none;
+    }
+    .notification-process-body {
+        padding: 1px 1px 1px 1px;
+        margin-top: 40px;
+        margin-left: 20px;
+        margin-right: 10px;
+        font-size: 14px;
+        color: rgb(71, 70, 70);
+    }
+
+</style>
+
+<div class="notification-process">
+    <div class="notification-process-header">
+        <div class="notification-process-logo">
+            <img src="https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_8SrWtF_vpfaja.png" alt="" width="100%">
         </div>
-        <div class="toast-body" >
-            {{success_msg}}
-        </div>
+        <div class="text-notification-process-logo"><span>Justo ahora</span></div>
+        <button class="btn-close-notification-process">&times;</button>
+    </div>
+    <div class="notification-process-body">
+        <span>{{success_msg}}</span>
     </div>
 </div>
+
+<script>
+    const notification = document.querySelector('.notification-process');
+    const btnCloseNotification = document.querySelector('.btn-close-notification-process');
+
+    btnCloseNotification.addEventListener('click', function() {
+        notification.style.display = 'none';
+    });
+
+    setTimeout(() => {
+        notification.style.display = 'none'
+    }, 5000) 
+</script>
+
 {{/if}}

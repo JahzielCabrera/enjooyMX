@@ -100,7 +100,7 @@ userCtrl.signUp = async (req, res, next) => {
                     <body>
                         <h2>Confirma tu cuenta</h2>
             
-                        <p>Hola ${name}, para accerder a todas las funciones de Menup debes confirmar tu correo. Por favor haz click en el siguiente
+                        <p>Hola ${name}, para accerder a todas las funciones de enjooy debes confirmar tu correo. Por favor haz click en el siguiente
                         botón. 
                         <a href="${confirmURL}">Confirmar cuenta</a>
                         </p>
@@ -127,9 +127,9 @@ userCtrl.signUp = async (req, res, next) => {
                 });
 
                 const info = await transporter.sendMail({
-                    from: 'Menup <no-reply@menup.com>',
+                    from: 'enjooy <no-reply@enjooy.com>',
                     to: email,
-                    subject: 'Confirma tu cuenta Menup',
+                    subject: 'Confirma tu cuenta enjooy',
                     html: confirmAccountHTML
                 });
 
@@ -261,9 +261,9 @@ userCtrl.restorePassword = async (req, res) => {
         });
 
         const info = await transporter.sendMail({
-            from: 'Menup <no-reply@menup.com>',
+            from: 'enjooy <no-reply@enjooy.com>',
             to: user_password.email,
-            subject: 'Cambia la contraseña de tu cuenta Menup',
+            subject: 'Cambia la contraseña de tu cuenta enjooy',
             html: contentHTML
         });
 
@@ -400,6 +400,7 @@ userCtrl.paymentInfo = async (req, res) => {
     res.render('users/paymentForm', {subscription, user_json});
 }
 
+
 userCtrl.createSubscription = async (req, res) => {
     console.log(`PaymenthMethodId: ${req.body.paymentMethodId}`);
     console.log(`CustomerId: ${req.body.customerId}`);
@@ -428,9 +429,69 @@ userCtrl.createSubscription = async (req, res) => {
         expand: ['latest_invoice.payment_intent'],
     });
 
-    console.log(subscription.latest_invoice.payment_intent.status);
+    res.send(subscription);
 
 }
+
+userCtrl.saveSubscriptiomInfo = async (req, res) => {
+    console.log(req.query);
+    const { subscriptionId, 
+            priceId, 
+            currentPeriodEnd, 
+            customerId, 
+            paymentMethodId } = req.query;
+    const userStripe = await User.findById(req.user.id);
+    userStripe.stripe.customer = customerId;
+    userStripe.stripe.price = priceId;
+    userStripe.stripe.currentPeriodEnd = (currentPeriodEnd*1000);
+    userStripe.stripe.subscription = subscriptionId;
+    userStripe.stripe.paymentMethod = paymentMethodId;
+    const subscription = await Subscription.findOne({subscriptionPriceId: priceId});
+    userStripe.account = subscription.subscriptionName;
+    if(subscription.subscriptionName == 'Básico') {
+        userStripe.accountLimits.limitSucursals = 1;
+        userStripe.accountLimits.limitDishes = 50;
+    }
+    if(subscription.subscriptionName == 'Intermedio') {
+        userStripe.accountLimits.limitSucursals = 3;
+        userStripe.accountLimits.limitDishes = 70;
+    }
+    if(subscription.subscriptionName == 'Avanzado') {
+        userStripe.accountLimits.limitSucursals = 10;
+        userStripe.accountLimits.limitDishes = 100;
+    }
+    await userStripe.save();
+    req.flash('alert_success', `¡Felicidades 🎉🥳! Acabas de actaulizar tu plan a ${subscription.subscriptionName}`)
+    res.redirect('/admin');
+}
+
+
+userCtrl.retryInvoice = async (req, res) => {
+    try {
+        await stripe.paymentMethods.attach(req.body.paymentMethodId, {
+          customer: req.body.customerId,
+        });
+        await stripe.customers.update(req.body.customerId, {
+          invoice_settings: {
+            default_payment_method: req.body.paymentMethodId,
+          },
+        });
+      } catch (error) {
+        // in case card_decline error
+        return res
+          .status('402')
+          .send({ result: { error: { message: error.message } } });
+      }
+    
+      const invoice = await stripe.invoices.retrieve(req.body.invoiceId, {
+        expand: ['payment_intent'],
+      });
+      res.send(invoice);
+}
+
+
+
+
 
 userCtrl.renderMySubscriptionForm = (req, res) => {
     res.render('users/mySubscription');
@@ -448,16 +509,6 @@ userCtrl.updateSubscription = (req, res) => {
 userCtrl.deleteSubscription = (req, res) => {
     res.send('Subscription Deleted 😡');
 }
-
-
-
-
-
-
-
-
-
-
 
 
 userCtrl.renderConfigForm = (req, res) => {

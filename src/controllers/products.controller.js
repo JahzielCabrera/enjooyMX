@@ -5,6 +5,7 @@ const User = require('../models/User');
 const Sucursal = require('../models/Sucursal');
 const cloudinary = require('cloudinary');
 const fs = require('fs-extra');
+const { isUndefined } = require('util');
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -18,16 +19,14 @@ productsCtrl.renderProductForm = async (req, res) => {
     res.render('products/newProduct', {categories, id});
 }; 
 
-productsCtrl.createNewProduct = async (req, res) => {
-    const imageFile = req.files.image[0];
+productsCtrl.createNewProduct = async (req, res, next) => {
     const { name, description, price, category } = req.body;
     const sucursal = req.params.id;
     const newProduct = new Product({name, description, price, category});
     newProduct.userId = req.user.id;
     newProduct.restaurantName = req.user.restaurantName;
     newProduct.sucursalId = sucursal;
-
-    if(imageFile){
+    if(req.files.length != undefined){
         const uploadCloudinary = await cloudinary.v2.uploader.upload(req.files.image[0].path, {width: 300}, function(error, result) {console.log(result, error); });
         newProduct.imageUrl = uploadCloudinary.secure_url;
         newProduct.cloudinary_public_id = uploadCloudinary.public_id;

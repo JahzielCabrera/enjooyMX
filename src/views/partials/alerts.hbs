@@ -1,5 +1,5 @@
-{{#each errors}}
-<div class="container py-3 px-5" style="width: 60%;">
+<!--{{#each errors}}
+<div class="container py-3 px-5" style="width: 60%; position: absolute;">
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{text}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -10,7 +10,7 @@
 {{/each}}
 
 {{#if error_msg}}
-<div class="container py-3 px-5" style="width: 60%;">
+<div class="container py-3 px-5" style="width: 60%; position: absolute;">
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{error_msg}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -21,7 +21,7 @@
 {{/if}}
 
 {{#if alert_success}}
-<div class="container py-3 px-5" style="width: 60%;">
+<div class="container py-3 px-5" style="width: 60%; position: absolute;">
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{alert_success}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -32,7 +32,7 @@
 {{/if}}
 
 {{#if error}}
-<div class="container py-3 px-5" style="width: 60%;">
+<div class="container py-3 px-5" style="width: 60%; position: absolute;">
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{error}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -40,4 +40,243 @@
         </button>
     </div>
 </div>
+{{/if}} -->
+<style>
+    .notification {
+        position: fixed;
+        height: 90px;
+        width: 350px;
+        top: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.09), 0 4px 10px 0 rgba(0, 0, 0, 0.09);
+        border-radius: 15px;
+        z-index: 5000;
+    }
+
+    .error {
+        /*background-color: rgb(247, 135, 131);*/
+        background-color: rgba(255, 255, 255, 0.85);
+    }
+    .success {
+        /*background-color: rgb(186, 245, 171);*/
+        background-color: rgba(255, 255, 255, 0.85);
+    }
+    .notification-logo {
+        float: left;
+        margin-top: 5px;
+        margin-left: 10px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .text-notification-logo {
+        float: left;
+        font-size: 12px;
+        margin-top: 8px;
+        margin-left: 5px;
+        color: rgb(87, 85, 85);
+    }
+    .text-notification-logo-success {
+        float: left;
+        font-size: 12px;
+        margin-top: 8px;
+        margin-left: 5px;
+        color: rgb(87, 85, 85);
+    }
+    .btn-close-notification {
+        float: right;
+        width: 18px;
+        height: 18px;
+        margin-top: 5px;
+        margin-right: 8px;
+        border-radius: 50%;
+        background-color: rgb(161, 161, 161);
+        border: none;
+        font-size: 12px;
+        color: white;
+        outline: none;
+    }
+
+    .hr {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        /*background-color: rgb(247, 135, 131);*/
+        background-color: rgba(255, 255, 255, 0.85);
+        margin-top: 35px;
+        border: none;
+    }
+
+    .error-icon {
+        float: left;
+        margin-top: 10px;
+        margin-left: 15px;
+        font-size: 25px;
+        width: 25px;
+        height: 25px;
+        color: rgb(204, 35, 5);
+    }
+    .check-icon {
+        float: left;
+        margin-top: 10px;
+        margin-left: 15px;
+        font-size: 25px;
+        width: 25px;
+        height: 25px;
+        color: rgb(2, 121, 8);
+    }
+    .notification-body {
+        padding: 1px 1px 1px 1px;
+        margin-top: 15px;
+        margin-left: 38px;
+        margin-right: 5px;
+        font-size: 14px;
+        color: rgb(87, 85, 85);
+        text-align: center;
+    }
+    .notification-body-success {
+        padding: 1px 1px 1px 1px;
+        margin-top: 15px;
+        margin-left: 38px;
+        margin-right: 5px;
+        font-size: 14px;
+        color: rgb(87, 85, 85);
+        text-align: center;
+    }
+    .notification-body span {
+        margin-top: 10px;
+        margin-left: 5px;
+        color: rgb(87, 85, 85);
+
+    }
+</style>
+
+{{#each errors}}
+<div class="notification error">
+    <div class="notification-header">
+        <div class="notification-logo">
+            <img src="https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_8SrWtF_vpfaja.png"
+                alt="logo" width="100%">
+        </div>
+        <div class="text-notification-logo"><span>Justo ahora</span></div>
+        <button class="btn-close-notification">&times;</button>
+    </div>
+    <hr class="hr">
+    <div class="error-icon">
+        <i class="fas fa-exclamation-circle"></i>
+    </div>
+    <div class="notification-body">
+        <span><strong>{{text}}</strong></span>
+    </div>
+</div>
+<script>
+    const notification = document.querySelector('.notification');
+    const btnCloseNotification = document.querySelector('.btn-close-notification');
+
+    btnCloseNotification.addEventListener('click', function () {
+        notification.style.display = 'none';
+    });
+
+    setTimeout(() => {
+        notification.style.display = 'none'
+    }, 5000);
+</script>
+{{/each}}
+
+{{#if error_msg}}
+<div class="notification error">
+    <div class="notification-header">
+        <div class="notification-logo">
+            <img src="https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_8SrWtF_vpfaja.png"
+                alt="logo" width="100%">
+        </div>
+        <div class="text-notification-logo"><span>Justo ahora</span></div>
+        <button class="btn-close-notification">&times;</button>
+    </div>
+    <hr class="hr">
+    <div class="error-icon">
+        <i class="fas fa-exclamation-circle"></i>
+    </div>
+    <div class="notification-body">
+        <span><strong>{{error_msg}}</strong></span>
+    </div>
+</div>
+<script>
+    const notification = document.querySelector('.notification');
+    const btnCloseNotification = document.querySelector('.btn-close-notification');
+
+    btnCloseNotification.addEventListener('click', function () {
+        notification.style.display = 'none';
+    });
+
+    setTimeout(() => {
+        notification.style.display = 'none'
+    }, 5000);
+</script>
 {{/if}}
+
+{{#if error}}
+<div class="notification error">
+    <div class="notification-header">
+        <div class="notification-logo">
+            <img src="https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_8SrWtF_vpfaja.png"
+                alt="logo" width="100%">
+        </div>
+        <div class="text-notification-logo"><span>Justo ahora</span></div>
+        <button class="btn-close-notification">&times;</button>
+    </div>
+    <hr class="hr">
+    <div class="error-icon">
+        <i class="fas fa-exclamation-circle"></i>
+    </div>
+    <div class="notification-body">
+        <span><strong>{{error}}</strong></span>
+    </div>
+</div>
+<script>
+    const notification = document.querySelector('.notification');
+    const btnCloseNotification = document.querySelector('.btn-close-notification');
+
+    btnCloseNotification.addEventListener('click', function () {
+        notification.style.display = 'none';
+    });
+
+    setTimeout(() => {
+        notification.style.display = 'none'
+    }, 5000);
+</script>
+{{/if}}
+
+{{#if alert_success}}
+<div class="notification success">
+    <div class="notification-header">
+        <div class="notification-logo">
+            <img src="https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_8SrWtF_vpfaja.png"
+                alt="logo" width="100%">
+        </div>
+        <div class="text-notification-logo-success"><span>Justo ahora</span></div>
+        <button class="btn-close-notification">&times;</button>
+    </div>
+    <hr class="hr">
+    <div class="check-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="notification-body-success">
+        <span><strong>{{alert_success}}</strong></span>
+    </div>
+</div>
+<script>
+    const notification = document.querySelector('.notification');
+    const btnCloseNotification = document.querySelector('.btn-close-notification');
+
+    btnCloseNotification.addEventListener('click', function () {
+        notification.style.display = 'none';
+    });
+
+    setTimeout(() => {
+        notification.style.display = 'none'
+    }, 5000);
+</script>
+{{/if}}
+

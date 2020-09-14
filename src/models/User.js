@@ -29,7 +29,7 @@ const UserSchema = new Schema({
     }, 
     logo: {
         type: String,
-        default: '/img/logo_menup2.png',
+        default: '/img/logo_enjooy2.png',
     }, 
     logo_public_id: {
         type: String
@@ -86,7 +86,24 @@ const UserSchema = new Schema({
             type: String,
             default: 'https://www.instagram.com'
         }
-    } 
+    }, 
+    stripe: {
+        customer: {
+            type: String
+        }, 
+        subscription: {
+            type: String
+        },
+        price: {
+            type: String
+        }, 
+        currentPeriodEnd: {
+            type: Date
+        }, 
+        paymentMethod: {
+            type: String
+        }
+    }
 },
     {   timestamps: true,
         writeConcern: {
