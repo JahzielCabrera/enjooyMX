@@ -29,14 +29,14 @@ const UserSchema = new Schema({
     }, 
     logo: {
         type: String,
-        default: '/img/logo_enjooy2.png',
+        default: 'https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_6S5FEW_y2aatz.png',
     }, 
     logo_public_id: {
         type: String
     },
     portada: {
         type: String,
-        default: '/img/portada.jpg'
+        default: 'https://res.cloudinary.com/djxxgphqp/image/upload/v1599726240/qeoxgmf84id6577zniyr.jpg'
     },
     portada_public_id: {
         type: String
@@ -62,7 +62,7 @@ const UserSchema = new Schema({
     },
     color: {
         type: String,
-        default: '#3B5BF7'
+        default: '#0056FF'
     },
     accountLimits: {
         limitSucursals: {

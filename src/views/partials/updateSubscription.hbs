@@ -1,0 +1,114 @@
+{{#if limit_alert}}
+<style>
+    .update-alert{
+        position: fixed;
+        width: 250px;
+        height: 320px;
+        bottom: 0;
+        right: 0;
+        margin-right: 15px;
+        margin-bottom: 25px;
+        background-color: rgb(231, 229, 229);
+        border-radius: 15px;
+        z-index: 5000;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.09), 0 4px 10px 0 rgba(0, 0, 0, 0.09);
+    }
+    .update-alert-logo {
+        float: left;
+        width: 23px;
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+    .update-alert-logo img {
+        width: 100%;
+    }
+    .update-alert-header-text {
+        float: left;
+        font-size: 12px;
+        margin-top: 9px;
+        margin-left: 6px;
+    }
+    .update-alert-close {
+        width: 18px;
+        height: 18px;
+        float: right;
+        border: none;
+        border-radius: 50%;
+        font-size: 12px;
+        color: #ffff;
+        margin-top: 8px;
+        margin-right: 10px;
+        background-color: rgb(119, 118, 118);
+    }
+    hr {
+        margin-top: 35px;
+        background-color: transparent;
+        border: none;
+    }
+    .update-alert-body {
+        padding: 10px 10px 10px 10px;
+    }
+    .update-alert-body h4 {
+        font-weight: 100;
+        font-size: 18px;
+        text-align: center;
+    }
+    .update-alert-body h5 {
+        margin-top: 15px;
+        font-size: 15px;
+        color: #0056FF;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    .limits {
+        margin-left: 25px;
+    }
+    .limits span{
+        font-size: 14px;
+    }
+    .button-update-plan {
+        width: 80%;
+        margin-top: 15px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+    .mail-support{
+        margin-top: 18px;
+        font-size: 12px;
+        line-height: 1;
+        text-align: center;
+    }
+</style>
+
+<div class="update-alert">
+    <div class="update-alert-header">
+        <div class="update-alert-logo"><img src="https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_8SrWtF_vpfaja.png" alt=""></div>
+        <span class="update-alert-header-text">Justo ahora</span>
+        <button class="update-alert-close">&times;</button>
+    </div>
+    <hr>
+    <div class="update-alert-body">
+        <h4>{{#each user}}{{name}}{{/each}}, tu plan actual tiene limitaciones <span style="font-size: 15px;">😢</span></h4>
+        <h5>PLAN {{#each user}}{{account}}{{/each}}</h5>
+    </div>
+    <div class="limits">
+        <span>Límite de sucursales: <strong>{{#each user}}{{accountLimits.limitSucursals}}{{/each}}</strong></span> <br>
+        <span>Límite de platillos: <strong>{{#each user}}{{accountLimits.limitDishes}}{{/each}}</strong></span>
+    </div>
+    <div class="button-update-plan">
+        <button class="btn btn-success btn-block">SUBIR DE PLAN 🚀</button>
+    </div>
+    <div class="mail-support">
+            <span>Si presentas algún problema, escribénos a <a href="mailto:soporte@enjooy.mx">soporte@enjooy.mx</a></span>
+    </div>
+</div>
+
+<script>
+    const updateAlert = document.querySelector('.update-alert');
+    const closeUpdateAlert = document.querySelector('.update-alert-close');
+
+    closeUpdateAlert.addEventListener('click', function(){
+        updateAlert.style.display = 'none';
+    })
+</script>
+{{/if}}

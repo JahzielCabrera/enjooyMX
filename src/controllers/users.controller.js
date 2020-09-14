@@ -42,7 +42,7 @@ userCtrl.signUp = async (req, res, next) => {
                 restaurantName, 
                 restaurantCategory 
             } = req.body;
-    
+        console.log(req.body);
         if (password != confirm_password){
             errors.push({text: 'Contraseñas no coinciden'});
         }
@@ -61,7 +61,6 @@ userCtrl.signUp = async (req, res, next) => {
                 const customer = await stripe.customers.create({email: email, preferred_locales: ['es']});
                 const newUser = new User({name, lastName, email, password, restaurantName, restaurantCategory, stripeCustomerId: customer.id});
                 newUser.password = await newUser.encryptPassword(password);
-                req.flash('alert_success', `Has sido registrado correctamente. Enviamos un enlace de confirmación a ${email}, confirma tu cuenta para acceder.`);
                 await newUser.save();
 
                 // Create a URL to confirm email
@@ -70,50 +69,80 @@ userCtrl.signUp = async (req, res, next) => {
 
                 confirmAccountHTML = `
 
-                    <style>
-                        body {
-                            font-family: 'Roboto', sans-serif;
-                        }
-   
-                        h2 {
-                            font-size: 3rem;
-                            text-align: center;
-                        }
-   
-                        a {
-                            margin-top: 2rem;
-                            text-align: center;
-                            display: block;
-                            padding: 1.5rem 0;
-                            color: rgb(255, 255, 255);
-                            background-color: rgb(74, 105, 243);
-                            font-weight: bold;
-                            text-transform: uppercase;
-                            text-decoration: none;
-                        }
-   
-                        p {
-                            line-height: 2;
-                        }
-                    </style>
-   
-                    <body>
-                        <h2>Confirma tu cuenta</h2>
-            
-                        <p>Hola ${name}, para accerder a todas las funciones de enjooy debes confirmar tu correo. Por favor haz click en el siguiente
-                        botón. 
-                        <a href="${confirmURL}">Confirmar cuenta</a>
-                        </p>
-   
-                        <p>
-                        <p style="font-size: 12px">Si no puedes accerder al enlace, visita: ${confirmURL}</p>
-                        </p>
-   
-                        <p>
-                        Si tú no solicitaste este enlace puedes ignorarlo.
-                        </p>
-   
-                    </body>
+                <style>
+                    body {
+                    font-family: 'Roboto', sans-serif;
+                    padding: 10px 10px 10px 10px;
+                    margin-left: 30px;
+                    text-align: center;
+                    line-height: 2;
+                }
+
+                h1 {
+                    margin-top: 20px;
+                    font-size: 2.2rem;
+                    text-align: center;
+                }
+
+                a.button {
+                    display: block;
+                    margin-top: 2rem;
+                    text-align: center;
+                    width: 50%;
+                    margin-left: 25%;
+                    padding: 1.5rem 0;
+                    color: rgb(255, 255, 255);
+                    background-color: #0056ff;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                }
+
+                p {
+                    text-align: center;
+                    line-height: 2;
+                }
+            </style>
+
+            <body style="font-family: 'Roboto', sans-serif;
+                        padding: 10px 10px 10px 10px;
+                        margin-left: 30px;">
+            <h1>Confirma tu cuenta Enjooy</h1>
+
+            <div class="congratulations">
+                <p><strong>${name},</strong></p>
+             <p> <strong>Felicidades!, estás cerca de empezar a usar enjooy. Da click en el botón de abajo para validar tu
+                email.</strong>
+            <a class="button" href="${confirmURL}" style="display: block;
+                                                          margin-top: 2rem;
+                                                          text-align: center;
+                                                          width: 50%;
+                                                          margin-left: 25%;
+                                                          padding: 1.5rem 0;
+                                                          color: rgb(255, 255, 255);
+                                                          background-color: #0056ff;
+                                                          font-weight: bold;
+                                                          text-transform: uppercase;
+                                                          text-decoration: none;">Confirmar cuenta Enjooy</a>
+            </p>
+
+            </div>
+
+            <p>
+            <p style="font-size: 12px">Si por alguna razón el botón no funciona, puedes copiar el siguiente enlace en tu
+                navegador: <a href="${confirmURL}">${confirmURL}</a></p>
+            </p>
+            <p>
+                Si tú no solicitaste este enlace, puedes ignorarlo.
+            </p>
+
+            <p>Si tienes algún problema, contáctanos en: <a href="mailto:soporte@enjooy.mx">soporte@enjooy.mx</a></p>
+
+            <p><Strong>El equipo de Enjooy MX 🇲🇽</Strong></p>
+            <a href="https://www.enjooy.mx"><img
+                src="https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_6S5FEW_y2aatz.png"
+                alt="Logo Enjooy" style="width: 180px;"></a>
+            </body>
        
                 `;
 
@@ -127,13 +156,13 @@ userCtrl.signUp = async (req, res, next) => {
                 });
 
                 const info = await transporter.sendMail({
-                    from: 'enjooy <no-reply@enjooy.com>',
+                    from: 'Enjooy MX <no-reply@enjooy.mx>',
                     to: email,
-                    subject: 'Confirma tu cuenta enjooy',
+                    subject: 'Confirma tu cuenta Enjooy',
                     html: confirmAccountHTML
                 });
 
-
+                req.flash('alert_success', `Enviamos un enlace a ${email}`);
                 res.redirect('/signin');
             }
         

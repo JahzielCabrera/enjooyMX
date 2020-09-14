@@ -57,6 +57,7 @@ app.use((req, res, next) => {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.alert_success = req.flash('alert_success');
     res.locals.error = req.flash('error');
+    res.locals.limit_alert = req.flash('limit_alert');
     res.locals.user = req.user || null;
     next();
 });
