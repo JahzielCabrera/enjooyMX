@@ -33,7 +33,7 @@ section .wave{
 section.pricing {
     background: #007bff;
     background: linear-gradient(to right, #0062E6, #33AEFF);
-    height: 1250px;
+    height: 1100px;
   }
 
 section.subscription{
@@ -256,6 +256,45 @@ footer {
 }
 
 
+/*  Contact Form  */
+.contact-form{
+  background: #fff;
+  margin-top: 20px;
+  margin-bottom: 5%;
+  width: 70%;
+}
+.contact-form .form-control{
+  border-radius:1rem;
+}
+
+.contact-form form{
+  padding: 10%;
+}
+.contact-form form .row{
+  margin-bottom: -7%;
+}
+
+.contact-form .btnContact {
+  width: 50%;
+  border: none;
+  border-radius: 1rem;
+  padding: 1.5%;
+  background: #02b95e;
+  font-weight: 100;
+  color: #fff;
+  cursor: pointer;
+}
+.btnContactSubmit
+{
+  width: 50%;
+  border-radius: 1rem;
+  padding: 1.5%;
+  color: #fff;
+  background-color: #0062cc;
+  border: none;
+  cursor: pointer;
+}
+
 /* Animations */
 
 .hand-move {
@@ -273,13 +312,13 @@ footer {
   /* Hover Effects on Card */
   @media(max-width: 1200px) {
     section.pricing {
-      height: 1500px;
+      height: 1400px;
     }
   }
 
   @media(max-width: 990px) {
     section.pricing {
-      height: 3000px;
+      height: 2700px;
     }
     .facebook-icon{
       float: left;
@@ -290,7 +329,7 @@ footer {
   }
   @media(max-width: 760px) {
     section.pricing {
-      height: 3200px;
+      height: 3000px;
     }
     .description--aboutus--footer {
       width: 100%;
@@ -319,7 +358,7 @@ footer {
 
   @media (max-width: 500px) {
     section.pricing {
-      height: 3400px;
+      height: 3000px;
     }
     section.subscription {
       height: 2350px;
@@ -354,20 +393,23 @@ footer {
   }
   @media(max-width: 450px){
     section.pricing {
-      height: 3500px;
+      height: 3050px;
     }
   }
   @media(max-width: 390px){
     section.pricing {
-      height: 3600px;
+      height: 3230px;
     }
   }
 
   @media(max-width: 350px){
     section.pricing {
-      height: 4100px;
+      height: 3500px;
     }
   }
+
+
+  
 
    
 
