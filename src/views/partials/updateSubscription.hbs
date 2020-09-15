@@ -87,8 +87,9 @@
         <button class="update-alert-close">&times;</button>
     </div>
     <hr>
+    <input type="hidden" value="{{limit_alert}}">
     <div class="update-alert-body">
-        <h4>{{#each user}}{{name}}{{/each}}, tu plan actual tiene limitaciones <span style="font-size: 15px;">😢</span></h4>
+        <h4>{{#each user}}{{name}}{{/each}}, tu plan actual tiene limitaciones <span style="font-size: 15px;">😔</span></h4>
         <h5>PLAN {{#each user}}{{account}}{{/each}}</h5>
     </div>
     <div class="limits">
@@ -96,7 +97,7 @@
         <span>Límite de platillos: <strong>{{#each user}}{{accountLimits.limitDishes}}{{/each}}</strong></span>
     </div>
     <div class="button-update-plan">
-        <button class="btn btn-success btn-block">SUBIR DE PLAN 🚀</button>
+        <a href="/subscriptions/my-subscription" style="text-decoration: none;"><button class="btn btn-success btn-block">SUBIR DE PLAN 🚀</button></a>
     </div>
     <div class="mail-support">
             <span>Si presentas algún problema, escribénos a <a href="mailto:soporte@enjooy.mx">soporte@enjooy.mx</a></span>

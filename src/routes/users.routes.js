@@ -6,7 +6,7 @@ const {isAuthenticated} = require('../helpers/validateAuth');
 const { renderSignUpForm, 
         signUp, 
         confirmAccount,
-        renderSignInForm, 
+        renderSignInForm,  
         signIn, 
         logOut,
         restorePasswordForm,
@@ -17,12 +17,10 @@ const { renderSignUpForm,
         renderSubscriptions,
         createSubscription,
         retryInvoice,
+        retriveCustomerPaymenthMethod,
         saveSubscriptiomInfo,
         paymentInfo,
         renderMySubscriptionForm,
-        renderChangeSubscriptionForm,
-        updateSubscription,
-        deleteSubscription,
         renderConfigForm,
         updateConfig
  } = require('../controllers/users.controller')
@@ -58,12 +56,8 @@ router.get('/subscription/create', isAuthenticated, saveSubscriptiomInfo);
 // Retry Invoice 
 router.post('/subscription/retry-invoice', isAuthenticated, retryInvoice);
 
-// Update Subscription
-router.get('/subscriptions/update', isAuthenticated, renderChangeSubscriptionForm);
-router.post('/subscriptions/update', isAuthenticated, updateSubscription);
-
-// Delete Subscription 
-router.post('/subscription/delete', isAuthenticated, deleteSubscription);
+// Retrive Customer Paymenth Method
+router.post('/retrieve-customer-payment-method', isAuthenticated, retriveCustomerPaymenthMethod);
 
 // Payments
 router.get('/subscription/create/:id', isAuthenticated, paymentInfo);

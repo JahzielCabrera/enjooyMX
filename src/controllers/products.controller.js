@@ -15,8 +15,15 @@ cloudinary.config({
  
 productsCtrl.renderProductForm = async (req, res) => {
     const id = req.params.id;
-    const categories = await Category.find({sucursalId: id}).lean();
-    res.render('products/newProduct', {categories, id});
+    const user = req.user;
+    const productsCount = await Product.find({userId: req.user.id}).countDocuments();
+    if(user.accountLimits.limitDishes <= productsCount){
+        req.flash('limit_alert', 'Tu cuenta tiene limites');
+        res.redirect('/menu/'+id);
+    } else {
+        const categories = await Category.find({sucursalId: id}).lean();
+        res.render('products/newProduct', {categories, id});
+    }
 }; 
 
 productsCtrl.createNewProduct = async (req, res, next) => {
@@ -40,18 +47,18 @@ productsCtrl.createNewProduct = async (req, res, next) => {
         res.redirect('/menu/'+sucursal); 
     }
 };
-  
+   
 
 productsCtrl.renderMenu = async (req, res) => {
     const sucursalId = req.params.id;
-    const user = await User.findById(req.user.id).lean();
+    const userMenu = await User.findById(req.user.id).lean();
     const menu = await Product.find({sucursalId: sucursalId}).lean();
     const categories = await Category.find({sucursalId: sucursalId}).lean();
     const sucursal = await Sucursal.findById(sucursalId).lean();
     if(!sucursal){
         res.redirect('/admin');
     } else{
-        res.render('products/menu', { user, sucursal, categories, menu });
+        res.render('products/menu', { userMenu, sucursal, categories, menu });
     }
 };
 
@@ -71,7 +78,6 @@ productsCtrl.renderEditForm = async (req, res, next) => {
 }; 
 
 productsCtrl.updateProduct = async (req, res) => {
-    const imageFile = req.files.image[0];
     const { name, description, price, category } = req.body;
     const productUpdate = await Product.findOne({_id: req.params.id});
     sucursalID = productUpdate.sucursalId;
@@ -79,8 +85,8 @@ productsCtrl.updateProduct = async (req, res) => {
     productUpdate.description = description;
     productUpdate.price = price;
     productUpdate.category = category;
-    
-    if(imageFile){
+     
+    if(req.files.length != undefined){
         await cloudinary.v2.uploader.destroy(productUpdate.cloudinary_public_id);
         const uploadCloudinary = await cloudinary.v2.uploader.upload(req.files.image[0].path, {width: 300}, function(error, result) {console.log(result, error); });
         productUpdate.imageUrl = uploadCloudinary.secure_url;

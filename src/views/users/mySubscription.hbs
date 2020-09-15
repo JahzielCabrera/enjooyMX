@@ -1,1 +1,178 @@
-<h1>My Subscription</h1>
+<style>
+    .container-mySubscription {
+        margin-left: 50%;
+        width: 75%;
+        margin-top: 50px;
+        transform: translateX(-50%);
+        border-radius: 20px;
+    }
+
+    .card {
+        border-radius: 20px;
+    }
+
+    .card-header {
+        border-radius: 20px;
+    }
+
+    .card-header-mySubscription {
+        text-align: center;
+    }
+
+    .logo-header-mySubscription img {
+        width: 30px;
+        float: left;
+    }
+
+    .card-header-mySubscription h1 {
+
+        font-size: 30px;
+
+    }
+
+    .card-title-mySubscription {
+        font-weight: 100;
+        font-size: 20px;
+        float: left;
+    }
+
+    .card--body {
+        float: right;
+    }
+
+    .card--body img {
+        height: 35px;
+        margin-right: 15px;
+    }
+
+    hr {
+        visibility: hidden;
+    }
+
+    hr.first {
+        margin-top: 40px;
+    }
+
+    hr.second {
+        margin-top: 55px;
+    }
+
+    hr.third {
+        margin-top: 55px;
+    }
+
+    hr.fourth {
+        margin-top: 60px;
+    }
+
+    .buttons-mySubscription {
+        width: 200px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .buttons-mySubscription button {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container-mySubscription">
+    <div class="card border-primary mb-3" style="">
+        <div class="card-header-mySubscription card-header">
+            <div class="logo-header-mySubscription">
+                <img src="https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_8SrWtF_vpfaja.png"
+                    alt="">
+            </div>
+            <h1>Mi subscripción</h1>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title-mySubscription">Plan actual</h5>
+            <h5 class="card--body" style="text-transform: uppercase">{{#each userSubscription}}{{account}}{{/each}}</h5>
+            <hr class="first">
+            <h5 class="card-title-mySubscription">Precio</h5>
+            <h5 class="card--body">${{#each subscription}}{{subscriptionAmount}}{{/each}} MXN/mes 🇲🇽</h5>
+            <hr class="second">
+            <h5 class="card-title-mySubscription">Próximo cobro</h5>
+            <input class="currentPeriodEnd" type="hidden" value="{{#each userSubscription}}{{stripe.currentPeriodEnd}}{{/each}}">
+            <h5 class="card--body period-date-local"></h5>
+            <hr class="third">
+            <h5 class="card-title-mySubscription">Tarjeta</h5>
+            <h5 class="card--body"><img class="img-card-icon" src="" alt=""> <button type="submit" class="show-card btn" style="background-color: rgb(181, 183, 185);" disabled>mostrar tarjeta <i class="far fa-eye"></i></button></h5>
+            <hr class="fourth">
+            <input class="paymentMethodId" type="hidden" value="{{#each userSubscription}}{{stripe.paymentMethod}}{{/each}}" name="paymentMethodId" id="paymentMethodId">
+            <div class="buttons-mySubscription">
+                <button class="btn btn-success change-subscription" data-toggle="modal" data-target="#modalChange">Cambiar subscripción <i
+                        class="fas fa-chevron-right"></i></button>
+                <button class="btn btn-danger cancel-subscription" data-toggle="modal" data-target="#modalCancel">Cancelar subscripción <i
+                        class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Cambiar subscripción</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{#each userSubscription}}{{name}}{{/each}}, para <strong>cambiar tu suscripción</strong> actual, envíanos un correo a <a href="mailto:ventas@enjooy.mx">ventas@enjooy.mx</a>, desde tu correo &lt;<strong>{{#each userSubscription}}{{email}}{{/each}}</strong>&gt;, describiendo el plan al que quires cambiar.
+        <br>
+        <span>Estamos para ayudarte :)</span> <br>
+        <br>
+        <span style="margin-top: 10px;">El equipo de Enjooy MX ❤️🇲🇽</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Cancelar subscripción</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{#each userSubscription}}{{name}}{{/each}}, para <strong>cancelar tu subscripción</strong> envíanos un correo a <a href="mailto:ventas@enjooy.mx">ventas@enjooy.mx</a> desde tu correo &lt;<strong>{{#each userSubscription}}{{email}}{{/each}}</strong>&gt;, explicandónos el motivo de tu desición. <br>
+        <span>Estamos para ayudarte :)</span> <br>
+        <br>
+        <span style="margin-top: 10px;">El equipo de Enjooy MX ❤️🇲🇽</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    var stripe = Stripe('pk_test_51HFryEHgLC7tFrSVSqYKy6iFgpLsp2vz8BWtvfaQof7mESDbcMHqUu6w00NJEfZK2iLBujdfMQL1yZkLj7J2iUdE00ejXy4lDv');
+
+    const imgCard = document.querySelector('.img-card-icon');
+    const currentPeriodEnd = document.querySelector('.currentPeriodEnd').value;
+    const btnShowCard = document.querySelector('.show-card');
+    const showLocalDate = document.querySelector('.period-date-local');
+    const paymentMethodId = document.querySelector('.paymentMethodId').value;
+    console.log(paymentMethodId);
+
+    var dateToLocal = new Date(currentPeriodEnd).toLocaleString();
+    dateToLocal = dateToLocal.split(" ")[0];
+
+    showLocalDate.innerHTML = `<h5>${dateToLocal}</h5>`;
+
+
+    
+</script>
+

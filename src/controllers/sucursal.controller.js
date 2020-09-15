@@ -10,26 +10,28 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-sucursalCtrl.renderSucursalForm = (req, res) => {
-    res.render('sucursal/newSucursal');
+sucursalCtrl.renderSucursalForm = async (req, res) => {
+    const userSucursal = req.user;
+    const numberSucursals = await Sucursal.find({userId: req.user.id}).countDocuments();
+    console.log(numberSucursals);
+    if(userSucursal.accountLimits.limitSucursals <= numberSucursals){
+        req.flash('limit_alert', 'Limite no permitido');
+        res.redirect('/admin');
+    } else {
+        res.render('sucursal/newSucursal');
+    }
 };
 
 sucursalCtrl.createNewSucursal = async (req, res, next) => {
-    try{
-        console.log(req.user);
-        const {name, adress, suburb, city, state} = req.body;
-        const newSucursal = new Sucursal({name});
-        newSucursal.location.adress = adress;
-        newSucursal.location.suburb = suburb;
-        newSucursal.location.city = city;
-        newSucursal.location.state = state;
-        newSucursal.userId = req.user.id;
-        newSucursal.restaurantName = req.user.restaurantName;
-        console.log(newSucursal);
-        await newSucursal.save();
-    } catch(err){
-        next();
-    }
+    const {name, adress, suburb, city, state} = req.body;
+    const newSucursal = new Sucursal({name});
+    newSucursal.location.adress = adress;
+    newSucursal.location.suburb = suburb;
+    newSucursal.location.city = city;
+    newSucursal.location.state = state;
+    newSucursal.userId = req.user.id;
+    newSucursal.restaurantName = req.user.restaurantName;
+    await newSucursal.save();
 
     req.flash('success_msg', 'Sucursal creada correctamente');
     res.redirect('/admin');

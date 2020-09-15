@@ -69,7 +69,7 @@ form.addEventListener('submit', function (ev) {
 });
 
  function displayError(event) {
-    let displayError = document.getElementById('card-errors');
+    let displayError = document.getElementById('card-errors'); 
     if (event.error) {
         displayError.textContent = event.error.message;
     } else {

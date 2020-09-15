@@ -235,20 +235,27 @@ userCtrl.restorePassword = async (req, res) => {
         <style>
             body {
                 font-family: 'Roboto', sans-serif;
+                padding: 10px 10px 10px 10px;
+                margin-left: 30px;
+                text-align: center;
+                line-height: 2;
             }
    
             h2 {
-                font-size: 3rem;
+                margin-top: 20px;
+                font-size: 2.2rem;
                 text-align: center;
             }
    
-            a {
+            a.button {
+                display: block;
                 margin-top: 2rem;
                 text-align: center;
-                display: block;
+                width: 50%;
+                margin-left: 25%;
                 padding: 1.5rem 0;
                 color: rgb(255, 255, 255);
-                background-color: rgb(74, 105, 243);
+                background-color: #0056ff;
                 font-weight: bold;
                 text-transform: uppercase;
                 text-decoration: none;
@@ -259,23 +266,43 @@ userCtrl.restorePassword = async (req, res) => {
             }
         </style>
    
-        <body>
-            <h2>Reestablecer contraseña</h2>
-            
-            <p>Hola ${user_password.name}, has solicitado reestablecer la contraseña de tu cuenta. Por favor haz click en el siguiente
-                botón. 
-            <a href="${resetUrl}">Cambiar contraseña</a>
-            </p>
+        <body style="font-family: 'Roboto', sans-serif;
+               padding: 10px 10px 10px 10px;
+               margin-left: 30px;
+               text-align: center;
+               line-height: 2;">
+        <h2>Reestablece la contraseña de tu cuenta</h2>
    
-            <p>
-                Este enlace es temporal, si se vence puedes volver a generarlo.
-                <p style="font-size: 12px">Si no puedes accerder al enlace, visita: ${resetUrl}</p>
-            </p>
+        <p><strong>Hola ${user_password.name}</strong></p> 
+        <p>Has solicitado reestablecer la contraseña de tu cuenta. Por favor haz click en el
+           siguiente
+           botón.
+            <a class="button" href="${resetUrl}" style="display: block;
+                                                       margin-top: 2rem;
+                                                       text-align: center;
+                                                       width: 50%;
+                                                       margin-left: 25%;
+                                                       padding: 1.5rem 0;
+                                                       color: rgb(255, 255, 255);
+                                                       background-color: #0056ff;
+                                                       font-weight: bold;
+                                                       text-transform: uppercase;
+                                                       text-decoration: none;">Cambiar contraseña</a>
+        </p>
    
-            <p>
-                Si tú no solicitaste este enlace puedes ignorarlo.
-            </p>
+        <p>
+            <strong>Nota:</strong> Este enlace es temporal, si se vence puedes volver a generarlo.
+        <p style="font-size: 12px">Si por alguna razón el botón no funciona, puedes copiar el siguiente enlace en tu navegador: <a href="${resetUrl}">${resetUrl}</a></p>
+        </p>
    
+        <p>
+            Si tú no solicitaste este enlace puedes ignorarlo.
+        </p>
+   
+        <p><strong>- El equipo de enjooy MX 🇲🇽</strong></p>
+        <a href="https://www.enjooy.mx"><img
+               src="https://res.cloudinary.com/djxxgphqp/image/upload/v1600046215/logos/LogoMakr_6S5FEW_y2aatz.png"
+               alt="Logo Enjooy" style="width: 180px;"></a>
         </body>
        
        `;
@@ -290,15 +317,15 @@ userCtrl.restorePassword = async (req, res) => {
         });
 
         const info = await transporter.sendMail({
-            from: 'enjooy <no-reply@enjooy.com>',
+            from: 'Enjooy MX <no-reply@enjooy.mx>',
             to: user_password.email,
-            subject: 'Cambia la contraseña de tu cuenta enjooy',
+            subject: 'Cambia la contraseña de tu cuenta Enjooy',
             html: contentHTML
         });
 
        console.log(resetUrl);
        console.log('Email sent', info.messageId);
-       req.flash('alert_success', `Hemos enviado un correo a ${email}, revisa tu bandeja de entrada.`)
+       req.flash('alert_success', `Hemos enviado un correo a ${email}.`)
        res.redirect('/signin');
     }
 };
@@ -518,25 +545,24 @@ userCtrl.retryInvoice = async (req, res) => {
       res.send(invoice);
 }
 
-
-
-
-
-userCtrl.renderMySubscriptionForm = (req, res) => {
-    res.render('users/mySubscription');
+userCtrl.retriveCustomerPaymenthMethod = async (req, res) => {
+    console.log(req.body);
+    const paymentMethod = await stripe.paymentMethods.retrieve(
+        req.body.paymentMethodId
+    );
+    res.send(paymentMethod);
 }
 
-
-userCtrl.renderChangeSubscriptionForm = (req, res) => {
-    res.render('users/changeSubscription');
-}
-
-userCtrl.updateSubscription = (req, res) => {
-    res.send('Subscription Updated 😨')
-}
-
-userCtrl.deleteSubscription = (req, res) => {
-    res.send('Subscription Deleted 😡');
+userCtrl.renderMySubscriptionForm = async (req, res) => {
+    const userSubscription = await User.findById(req.user.id);
+    console.log(userSubscription.stripe.length);
+    if(userSubscription.stripe == {}){
+        req.flash('success_msg', 'Selecciona un plan, por favor');
+        res.redirect('/subscriptions');
+    } else {
+        const subscription = await Subscription.findOne({subscriptionPriceId: userSubscription.stripe.price});
+        res.render('users/mySubscription', {userSubscription, subscription});
+    }
 }
 
 
@@ -575,5 +601,6 @@ userCtrl.updateConfig = async (req, res) => {
     req.flash('success_msg', 'Información actualizada con éxito 👽');
     res.redirect('/admin');
 }
+
 
 module.exports = userCtrl;

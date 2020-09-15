@@ -262,9 +262,10 @@ footer {
   margin-top: 20px;
   margin-bottom: 5%;
   width: 70%;
+  border-radius: 20px;
 }
 .contact-form .form-control{
-  border-radius:1rem;
+  border-radius: 20px;
 }
 
 .contact-form form{
@@ -277,7 +278,7 @@ footer {
 .contact-form .btnContact {
   width: 50%;
   border: none;
-  border-radius: 1rem;
+  border-radius: 15px;
   padding: 1.5%;
   background: #02b95e;
   font-weight: 100;

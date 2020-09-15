@@ -17,7 +17,7 @@
                     </a>
                     <div class="dropdown-menu" style="box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);" aria-labelledby="navbarDropdown">
                         <span class="dropdown-item"><strong>¡Hola {{#each user}}{{this.name}}{{/each}}!</strong></span>
-                        <span class="dropdown-item text-muted text-uppercase" style="font-size: 14px;">{{#each user}}{{account}}{{/each}}</span>
+                        <span class="dropdown-item text-muted text-uppercase" style="font-size: 14px;">{{#each user}}{{this.account}}{{/each}}</span>
                         <a class="dropdown-item" style="color: rgb(8, 90, 243);" href="/admin">Ver sucursales</a>
                         <hr class="m-auto" style="width: 85%;">
                         <div class="mt-2 mb-3">
@@ -34,7 +34,7 @@
                 <a class="nav-link" href="/">Inicio</a>
                 <a class="nav-link" href="/#beneficios">Beneficios</a>
                 <a class="nav-link" href="/#precios">Precios</a>
-                <a class="nav-link" href="#contact">Contáctanos</a>
+                <a class="nav-link" href="/#contact">Contáctanos</a>
                 <a href="/signin" class="btn btn-outline-primary my-2 my-sm-0 mx-1" style="font-size: 17px;">Iniciar
                     Sesión</a>
                 <a href="/signup" class="btn btn-outline-success my-2 my-sm-0 mx-1" style="font-size: 17px;">Registrarse</a>

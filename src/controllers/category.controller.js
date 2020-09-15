@@ -50,7 +50,7 @@ categoryCtrl.updateCategory = async (req, res) => {
     categoryUpdate.name = name;
     categoryUpdate.categoryName = name.toLowerCase().split(" ").join("");
 
-    if(imageFile){
+    if(req.files.length != undefined){
         await cloudinary.v2.uploader.destroy(categoryUpdate.cloudinary_publicId);
         const uploadCloudinary = await cloudinary.v2.uploader.upload(req.files.image[0].path, {width: 600}, function(error, result) {console.log(result, error); });
         categoryUpdate.img = uploadCloudinary.secure_url;
