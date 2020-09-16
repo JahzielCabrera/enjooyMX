@@ -48,7 +48,7 @@ productsCtrl.createNewProduct = async (req, res, next) => {
     }
 };
    
-
+ 
 productsCtrl.renderMenu = async (req, res) => {
     const sucursalId = req.params.id;
     const userMenu = await User.findById(req.user.id).lean();
@@ -56,7 +56,7 @@ productsCtrl.renderMenu = async (req, res) => {
     const categories = await Category.find({sucursalId: sucursalId}).lean();
     const sucursal = await Sucursal.findById(sucursalId).lean();
     if(req.user.id != sucursal.userId){
-        req.flas('error_msg', 'No autorizado');
+        req.flash('error_msg', 'No autorizado');
         res.redirect('/admin');
     } else {
         if(!sucursal){
