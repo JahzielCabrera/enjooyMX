@@ -62,7 +62,7 @@ userCtrl.signUp = async (req, res, next) => {
                 await newUser.save();
 
                 // Create a URL to confirm email
-                const confirmURL = `http://${req.headers.host}/confirmaccount/${email}`;
+                const confirmURL = `https://${req.headers.host}/confirmaccount/${email}`;
                 console.log(confirmURL);
 
                 confirmAccountHTML = `
