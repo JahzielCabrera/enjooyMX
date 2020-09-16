@@ -48,7 +48,7 @@ router.post('/restorepassword/:token', updatePassword);
 // Subscriptions
 router.post('/stripewh', bodyParser.raw({ type: 'application/json' }), stripeWebHooks);
 router.get('/subscriptions', isAuthenticated, renderSubscriptions);
-
+ 
 // Render Subscription Info 
 router.get('/subscriptions/my-subscription', isAuthenticated, renderMySubscriptionForm);
 router.get('/subscription/create', isAuthenticated, saveSubscriptiomInfo);
