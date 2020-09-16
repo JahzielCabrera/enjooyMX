@@ -9,12 +9,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const User = require('../models/User');
 const Subscription = require('../models/Subscription');
-const { reset } = require('nodemon');
 const { connection } = require('mongoose');
 const { user } = require('../config/email');
 const cloudinary = require('cloudinary');
 const fs = require('fs-extra');
-const { exists } = require('../models/User');
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
