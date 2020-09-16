@@ -441,8 +441,8 @@ userCtrl.stripeWebHooks = async (req, res) => {
 
 userCtrl.renderSubscriptions = async (req, res) => {
     console.log(req.user);
-    console.log('User Stripe Info' + req.user.stripe.length);
-    if(req.user.stripe === undefined){
+    console.log('User Stripe Info: ' + req.user.stripe.subscription);
+    if(req.user.stripe.subscription === undefined) {
         const basic = await Subscription.findOne({subscriptionName: 'Básico'}).lean();
         const intermediate = await Subscription.findOne({subscriptionName: 'Intermedio'}).lean();
         const advance = await Subscription.findOne({subscriptionName: 'Avanzado'}).lean();
@@ -453,7 +453,7 @@ userCtrl.renderSubscriptions = async (req, res) => {
 }
 
 userCtrl.paymentInfo = async (req, res) => {
-    if(req.user.stripe === undefined){
+    if(req.user.stripe.subscription === undefined) {
         const user = req.user;
         const user_json = user.toJSON();
         console.log(user.toJSON());
