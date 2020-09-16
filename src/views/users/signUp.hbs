@@ -12,38 +12,44 @@
     <div class="form-row">
         <div class="col-md-6 mb-3">
             <label for="validationServer01">Ingresa tu nombre</label>
-            <input type="text" name="name" class="form-control " id="validationServer01" placeholder="Nombre(s)" value="{{name}}" required autofocus>
+            <input type="text" name="name" class="form-control " id="validationServer01" placeholder="Nombre(s)"
+                value="{{name}}" required autofocus>
         </div>
         <div class="col-md-6 mb-3">
             <label for="validationServer02">Ingresa tus apellidos</label>
-            <input type="text" name="lastName" class="form-control " id="validationServer02" placeholder="Apellidos" value="{{lastName}}" required>
+            <input type="text" name="lastName" class="form-control " id="validationServer02" placeholder="Apellidos"
+                value="{{lastName}}" required>
         </div>
     </div>
     <div class="form-row py-1">
         <label for="">Ingresa tu email</label>
-        <input id="email" type="email" name="email" class="form-control" placeholder="tuemail@service.com" value="{{email}}" required>
+        <input id="email" type="email" name="email" class="form-control" placeholder="tuemail@service.com"
+            value="{{email}}" required>
     </div>
     <br>
     <div class="form-row">
         <div class="col-md-6 mb-3">
             <label for="validationServer01">Ingresa tu contraseña</label>
-            <input type="password" name="password" class="form-control " id="validationServer01" placeholder="Contraseña" required>
+            <input type="password" name="password" class="form-control " id="validationServer01"
+                placeholder="Contraseña" required>
         </div>
         <div class="col-md-6 mb-3">
             <label for="validationServer02">Confirma tu contraseña</label>
-            <input type="password" name="confirm_password" class="form-control " id="validationServer02" placeholder="Confirmar contraseña" required>
+            <input type="password" name="confirm_password" class="form-control " id="validationServer02"
+                placeholder="Confirmar contraseña" required>
         </div>
     </div>
     <div class="form-row py-1">
         <div class="col-md-6 mb-2">
             <label for="validationServer03">¿Cuál es el nombre de tu restaurante?</label>
             <input name="restaurantName" type="text" class="form-control " id="validationServer03"
-                aria-describedby="validationServer03Feedback" placeholder="Nombre de tu restaurante" value="{{restaurantName}}" required>
+                aria-describedby="validationServer03Feedback" placeholder="Nombre de tu restaurante"
+                value="{{restaurantName}}" required>
         </div>
         <div class="col-md-6 mb-2">
             <label for="validationServer04">Elige la categoría que describa a tu restaurante</label>
-            <select name="restaurantCategory" class="custom-select " id="validationServer04" aria-describedby="validationServer04Feedback"
-                required>
+            <select name="restaurantCategory" class="custom-select " id="validationServer04"
+                aria-describedby="validationServer04Feedback" required>
                 <option selected disabled value="">Selecciona una</option>
                 <option value="cafeteria">Cafetería</option>
                 <option value="restaurante">Restaurante</option>
@@ -53,7 +59,7 @@
                 <option value="bar">Bar</option>
                 <option value="otro">Otra</option>
             </select>
-            
+
         </div>
     </div>
     <div class="form-group">
@@ -61,9 +67,12 @@
             <input class="form-check-input " type="checkbox" value="" id="invalidCheck3"
                 aria-describedby="invalidCheck3Feedback" required>
             <label class="form-check-label" for="invalidCheck3">
-                Acepto <a href="https://www.google.com" style="color: black;">terminos y condiciones</a>
+                Acepto <a class="btn-link" style="height: 15px; background-color: rgba(247, 247, 247, 0); border: none;"
+                    data-toggle="modal" data-target="#modalTyC"><span style="color: black; cursor: pointer;">términos y
+                        condiciones</span></a>
             </label>
-            <a href="/signin" class="mx-5 text-resetpassword" style="font-size: 16px;">¿Ya tienes cuenta? Ingresa aquí</a>
+            <a href="/signin" class="mx-5 text-resetpassword" style="font-size: 16px;">¿Ya tienes cuenta? Ingresa
+                aquí</a>
         </div>
     </div>
     <div class="align-items-center container">
@@ -74,35 +83,119 @@
 <br>
 <br>
 
+<!-- Modal -->
+<div class="modal fade" id="modalTyC" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTyC" style="color: rgb(80, 78, 78);">Términos y condiciones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span style="color: black;">
+                    <strong>INFORMACIÓN RELEVANTE</strong> <br>
+                    <br>
+                    <span>Es requisito necesario para la adquisición de los productos que se ofrecen en este sitio, que
+                        lea y acepte los siguientes Términos y Condiciones que a continuación se redactan. El uso de
+                        nuestros servicios así como la subscripción de nuestros productos implicará que usted ha leído y
+                        aceptado los Términos y Condiciones de Uso en el presente documento. Para proveer el servicio,
+                        será necesario el registro por parte del usuario, con
+                        ingreso de datos personales fidedignos y definición de una contraseña.
+
+                        El usuario puede elegir y cambiar la clave para su acceso de administración de la cuenta en
+                        cualquier momento, en caso de que se haya registrado y que sea necesario para la compra de
+                        alguno de nuestros productos. Enjooy no asume la responsabilidad en caso de que entregue dicha
+                        clave a terceros.
+
+                        Todas las subscripciones y transacciones que se lleven a cabo por medio de este sitio web, son
+                        manejadas por stripe, una plataforma de pagos por internet 100% segura.
+                        Los precios de los subscripciones en este sitio web son en pesos mexicanos (MXN).</span>
+                    <br>
+                    <br>
+                    <strong>LICENCIA</strong> <br>
+                    <br>
+                    <span>Enjooy a través de su sitio web concede una licencia para que los usuarios utilicen los
+                        servicios
+                        que son ofrecidos en este sitio web de acuerdo a los Términos y Condiciones que se describen en
+                        este
+                        documento.</span> <br>
+                    <br>
+                    <strong>USO NO AUTORIZADO</strong> <br>
+                    <br>
+                    <span>El cliente no puede revender u ofrecer los servicios sin la autorización de enjooy. </span> <br>
+                    <br>
+
+                    <strong>PROPIEDAD</strong> <br>
+                    <br>
+
+                    <span>El software y los servicios son propiedad de Enjooy y el cliente no puede adjudicar propiedad de los servicios y software ofrecido en esta página web</span>
+
+                    <br>
+                    <br>
+
+                    <strong>COMPROBACIÓN ANTIFRAUDE</strong> <br>
+                    <br>
+
+                    <span>La compra del cliente puede ser aplazada para la comprobación antifraude. También puede ser
+                    suspendida por más tiempo para una investigación más rigurosa, para evitar transacciones
+                    fraudulentas.</span> <br>
+                    <br>
+
+                    <strong>PRIVACIDAD</strong> <br>
+                    <br>
+
+                    <span>Este Enjooy garantiza que la información personal que usted envía cuenta con la seguridad necesaria.
+                    Los datos ingresados por usuario o en el caso de requerir una validación de los pedidos no serán
+                    entregados a terceros, salvo que deba ser revelada en cumplimiento a una orden judicial o
+                    requerimientos legales.
+
+                    La suscripción a boletines de correos electrónicos publicitarios es voluntaria y podría ser
+                    seleccionada al momento de crear su cuenta.
+
+                    Enjooy reserva los derechos de cambiar o de modificar estos términos sin previo aviso.</span>
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script>
-      function createCustomer() {
+    function createCustomer() {
         let billingEmail = document.querySelector('#email').value;
         return fetch('/create-customer', {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: billingEmail,
-          }),
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: billingEmail,
+            }),
         })
-          .then((response) => {
-            return response.json();
-          })
-          .then((result) => {
-            // result.customer.id is used to map back to the customer object
-            // result.setupIntent.client_secret is used to create the payment method
-            return result;
-          });
-      }
-​
-      let signupForm = document.getElementById('signup-form');
-​
-      signupForm.addEventListener('submit', function (evt) {
+            .then((response) => {
+                return response.json();
+            })
+            .then((result) => {
+                // result.customer.id is used to map back to the customer object
+                // result.setupIntent.client_secret is used to create the payment method
+                return result;
+            });
+    }
+
+    let signupForm = document.getElementById('signup-form');
+
+    signupForm.addEventListener('submit', function (evt) {
         evt.preventDefault();
         // Create Stripe customer
         createCustomer().then((result) => {
-          customer = result.customer;
+            customer = result.customer;
         });
-      });
-    </script>
+    });
+</script>

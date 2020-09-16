@@ -11,6 +11,8 @@ const session = require('express-session');
 const passport = require('passport');
 const helpers = require('./helpers/validateAuth');
 const { all } = require('./routes/index.routes');
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
 
 //Initializations
 const app = express();
@@ -44,6 +46,12 @@ app.use(multer({storage}).fields([{name: 'image'}, {name: 'portada'}]));
 app.use(methodOverride('_method'));
 app.use(session({
     secret: 'secret',
+    store: new MongoStore({
+        url: process.env.MENU_APP_HOST,
+        ttl: 5*60*60,
+        autoRemove: 'interval',
+        autoRemoveInterval: 10
+    }),
     resave: false,
     saveUninitialized: false
 }));

@@ -9,7 +9,7 @@ function sendRequest() {
 
 
 
-var stripe = Stripe('pk_test_51HFryEHgLC7tFrSVSqYKy6iFgpLsp2vz8BWtvfaQof7mESDbcMHqUu6w00NJEfZK2iLBujdfMQL1yZkLj7J2iUdE00ejXy4lDv');
+var stripe = Stripe('pk_live_51HFryEHgLC7tFrSV3ppEgkMCTb1TU5sBc0Zh9zYLI9WBHxGmhi0mpChgD48vaF2bJjCmz2H6eWEETB82Zy5RazaL00P1j34K8m');
 var elements = stripe.elements();
 
 var style = {
