@@ -55,10 +55,15 @@ productsCtrl.renderMenu = async (req, res) => {
     const menu = await Product.find({sucursalId: sucursalId}).lean();
     const categories = await Category.find({sucursalId: sucursalId}).lean();
     const sucursal = await Sucursal.findById(sucursalId).lean();
-    if(!sucursal){
+    if(req.user.id != sucursal.userId){
+        req.flas('error_msg', 'No autorizado');
         res.redirect('/admin');
-    } else{
-        res.render('products/menu', { userMenu, sucursal, categories, menu });
+    } else {
+        if(!sucursal){
+            res.redirect('/admin');
+        } else{
+            res.render('products/menu', { userMenu, sucursal, categories, menu });
+        }
     }
 };
 
