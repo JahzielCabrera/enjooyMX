@@ -440,18 +440,26 @@ userCtrl.stripeWebHooks = async (req, res) => {
 }
 
 userCtrl.renderSubscriptions = async (req, res) => {
-    const basic = await Subscription.findOne({subscriptionName: 'Básico'}).lean();
-    const intermediate = await Subscription.findOne({subscriptionName: 'Intermedio'}).lean();
-    const advance = await Subscription.findOne({subscriptionName: 'Avanzado'}).lean();
-    res.render('users/subscriptionPayment', {basic, intermediate, advance});
+    if(req.user.stripe === {}){
+        const basic = await Subscription.findOne({subscriptionName: 'Básico'}).lean();
+        const intermediate = await Subscription.findOne({subscriptionName: 'Intermedio'}).lean();
+        const advance = await Subscription.findOne({subscriptionName: 'Avanzado'}).lean();
+        res.render('users/subscriptionPayment', {basic, intermediate, advance});
+    } else {
+        res.redirect('/subscriptions/my-subscription');
+    }
 }
 
 userCtrl.paymentInfo = async (req, res) => {
-    const user = req.user;
-    const user_json = user.toJSON();
-    console.log(user.toJSON());
-    const subscription = await Subscription.findById(req.params.id).lean();
-    res.render('users/paymentForm', {subscription, user_json});
+    if(req.user.stripe === {}){
+        const user = req.user;
+        const user_json = user.toJSON();
+        console.log(user.toJSON());
+        const subscription = await Subscription.findById(req.params.id).lean();
+        res.render('users/paymentForm', {subscription, user_json});
+    } else {
+        res.redirect('/subscriptions/my-subscription');
+    }
 }
 
 
