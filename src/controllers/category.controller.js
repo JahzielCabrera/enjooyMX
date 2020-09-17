@@ -1,6 +1,7 @@
 const categoryCtrl = {};
 const Category = require('../models/Category');
 const Product = require('../models/Product');
+const Sucursal = require('../models/Sucursal');
 const cloudinary = require('cloudinary');
 const fs = require('fs-extra');
 
@@ -10,14 +11,21 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-categoryCtrl.renderNewCategory = (req, res) => {
+categoryCtrl.renderNewCategory = async (req, res) => {
     const id = req.params.id;
-    res.render('category/newCategory', {id});
+    const sucursal = await Sucursal.findById(id);
+    console.log(sucursal);
+    if(req.user.id != sucursal.userId) {
+        req.flash('error_msg', 'No autorizado');
+        res.redirect('/menu/'+id);
+    } else {
+        res.render('category/newCategory', {id});
+    }
 };
 
 categoryCtrl.createNewCategory = async (req, res, next) => {
     const {name} = req.body;
-    const verifyCategory = await Category.findOne({name: name});
+    const verifyCategory = await Category.findOne({sucursalId: req.params.id, name: name});
     if(verifyCategory){
         req.flash('error_msg', 'Ya existe una categoría con ese nombre');
         res.redirect('/menu/'+req.params.id);

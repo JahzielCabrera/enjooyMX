@@ -19,24 +19,32 @@
         {{sucursal.location.city}}, {{sucursal.location.state}}</p>
 </section>
 
-<nav class="navbar navbar-light navbar-expand navbar-light px-5" style="background-color: #0496ff;">
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/category/new/{{sucursal._id}}" style="font-size: 17px;">Agregar
-                    categoría <i class="fas fa-plus-circle"></i></a>
-            </li>
-            {{#if categories}}
-            <li class="nav-item active">
-                <a class="nav-link text-white" href="/products/add/{{sucursal._id}}" style="font-size: 17px;">Agregar
-                    producto <i class="fas fa-plus-circle"></i></a>
-            </li>
-            {{/if}}
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/promo/new/{{sucursal._id}}" style="font-size: 17px;">Agregar promoción <i class="fas fa-plus-circle"></i></a>
-            </li>
-        </ul>
-    </div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><img src="{{userMenu.logo}}" alt="" height="60px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/category/new/{{sucursal._id}}" style="font-size: 17px;">Agregar categoría <i class="fas fa-plus-circle"></i></a>
+      </li>
+      {{#if categories}}
+      <li class="nav-item">
+        <a class="nav-link" href="/products/add/{{sucursal._id}}" style="font-size: 17px;">Agregar producto <i class="fas fa-plus-circle"></i></a>
+      </li>
+      {{/if}}
+      <li class="nav-item">
+        <a class="nav-link" href="/promo/new/{{sucursal._id}}" style="font-size: 17px;">Agregar promoción <i class="fas fa-plus-circle"></i></a>
+      </li>
+      {{#if menu}}
+      <li class="nav-item">
+        <a class="nav-link" href="/menu/{{userMenu.restaurantNameJoin}}/{{sucursal._id}}" style="font-size: 17px;">Como lo ven mis clientes <i class="far fa-eye"></i></a>
+      </li>
+      {{/if}}
+    </ul>
+  </div>
 </nav>
 
 {{#if categories}}

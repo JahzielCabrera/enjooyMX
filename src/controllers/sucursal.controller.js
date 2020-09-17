@@ -71,7 +71,12 @@ sucursalCtrl.updateSucursal = async (req, res, next) => {
 
 sucursalCtrl.renderPromo = async (req, res) => {
     const sucursal = await Sucursal.findById(req.params.id);
-    res.render('sucursal/newPromo', sucursal);
+    if(req.user.id != sucursal.userId){
+        req.flash('error_msg', 'No autorizado');
+        res.redirect('/admin');
+    } else {
+        res.render('sucursal/newPromo', sucursal);
+    }
 }
 
 sucursalCtrl.createPromo = async (req, res) => {

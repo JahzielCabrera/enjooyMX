@@ -22,7 +22,11 @@ const UserSchema = new Schema({
     restaurantName: {
         type: String,
         required: true
-    }, 
+    },
+    restaurentNameJoin: {
+        type: String,
+        default: 'enjooymx'
+    },
     restaurantCategory: {
         type: String,
         required: true

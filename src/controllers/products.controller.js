@@ -16,13 +16,19 @@ cloudinary.config({
 productsCtrl.renderProductForm = async (req, res) => {
     const id = req.params.id;
     const user = req.user;
-    const productsCount = await Product.find({userId: req.user.id}).countDocuments();
-    if(user.accountLimits.limitDishes <= productsCount){
-        req.flash('limit_alert', 'Tu cuenta tiene limites');
+    const sucursal = await Sucursal.findById(id);
+    if(req.user.id != sucursal.userId){
+        req.flash('error_msg', 'No autorizado');
         res.redirect('/menu/'+id);
     } else {
-        const categories = await Category.find({sucursalId: id}).lean();
-        res.render('products/newProduct', {categories, id});
+        const productsCount = await Product.find({userId: req.user.id}).countDocuments();
+        if(user.accountLimits.limitDishes <= productsCount){
+            req.flash('limit_alert', 'Tu cuenta tiene limites');
+            res.redirect('/menu/'+id);
+        } else {
+            const categories = await Category.find({sucursalId: id}).lean();
+            res.render('products/newProduct', {categories, id});
+        }
     }
 }; 
 
