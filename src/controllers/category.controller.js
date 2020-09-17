@@ -51,7 +51,6 @@ categoryCtrl.renderEditCategory = async (req, res) => {
 };
 
 categoryCtrl.updateCategory = async (req, res) => {
-    const imageFile = req.files.image[0];
     const { name } = req.body;
     const categoryUpdate = await Category.findOne({_id: req.params.id});
     await Product.updateMany({category: categoryUpdate.categoryName}, {category: name.toLowerCase().split(" ").join("")});
@@ -78,8 +77,8 @@ categoryCtrl.updateCategory = async (req, res) => {
 
 categoryCtrl.deleteCategory = async (req, res, next) => {
     const category = await Category.findOne({_id: req.params.id}).lean();
-    console.log(category._id);
     const products = await Product.findOne({category: category.categoryName});
+    await cloudinary.v2.uploader.destroy(category.cloudinary_publicId);
     if(products){
         await Product.deleteMany({category: category.categoryName});
         await Category.findByIdAndDelete(category._id);

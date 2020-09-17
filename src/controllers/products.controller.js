@@ -39,7 +39,16 @@ productsCtrl.createNewProduct = async (req, res, next) => {
     newProduct.userId = req.user.id;
     newProduct.restaurantName = req.user.restaurantName;
     newProduct.sucursalId = sucursal;
-    if(req.files.length != undefined){
+    var image = 0;
+    console.log(`image: ${req.files.image}`)
+    try {
+        if(req.files.image != undefined){
+            image = 1;
+        }
+    } catch(err){
+        next();
+    }
+    if(image == 1){
         const uploadCloudinary = await cloudinary.v2.uploader.upload(req.files.image[0].path, {width: 300}, function(error, result) {console.log(result, error); });
         newProduct.imageUrl = uploadCloudinary.secure_url;
         newProduct.cloudinary_public_id = uploadCloudinary.public_id;

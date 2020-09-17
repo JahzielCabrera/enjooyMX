@@ -59,6 +59,7 @@ userCtrl.signUp = async (req, res, next) => {
                 const customer = await stripe.customers.create({email: email, preferred_locales: ['es']});
                 const newUser = new User({name, lastName, email, password, restaurantName, restaurantCategory, stripeCustomerId: customer.id});
                 newUser.password = await newUser.encryptPassword(password);
+                newUser.restaurantNameJoin = restaurantName.toLocaleLowerCase().split(" ").join("");
                 await newUser.save();
 
                 // Create a URL to confirm email
@@ -564,7 +565,7 @@ userCtrl.retriveCustomerPaymenthMethod = async (req, res) => {
 userCtrl.renderMySubscriptionForm = async (req, res) => {
     const userSubscription = await User.findById(req.user.id);
     console.log(userSubscription.stripe.length);
-    if(userSubscription.stripe == {}){
+    if(userSubscription.stripe.subscription === undefined){
         req.flash('success_msg', 'Selecciona un plan, por favor');
         res.redirect('/subscriptions');
     } else {
