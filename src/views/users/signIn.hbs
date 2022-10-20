@@ -16,8 +16,14 @@
     }
   }
 </style>
-<h1 class="container text-center py-5 text-signin">Ingresa a tu cuenta de enjooy</h1>
+<h1 class="container text-center py-4 text-signin">Ingresa a tu cuenta de enjooy</h1>
+
 <form action="/signin" class="signin-form container" method="POST"> 
+  <div class="alert alert-danger container form-group mb-4 text-center" role="alert">
+    For testing you can use the following credentials <br>
+    email: <strong>test@emailprovider.com</strong> <br>
+    password: <strong>12345678</strong>
+  </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Ingresa tu email</label>
     <input name="email" type="email" class="form-control input-signin" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="tuemail@service.com" autofocus required>
