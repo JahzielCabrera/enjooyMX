@@ -145,21 +145,21 @@ userCtrl.signUp = async (req, res, next) => {
        
                 `;
 
-                const transporter = nodemailer.createTransport({
-                    host: emailConfig.host,
-                    port: emailConfig.port,
-                    auth: {
-                        user: emailConfig.user,
-                        pass: emailConfig.pass
-                    }
-                });
+                // const transporter = nodemailer.createTransport({
+                //     host: emailConfig.host,
+                //     port: emailConfig.port,
+                //     auth: {
+                //         user: emailConfig.user,
+                //         pass: emailConfig.pass
+                //     }
+                // });
 
-                const info = await transporter.sendMail({
-                    from: 'Enjooy MX <no-reply@enjooy.mx>',
-                    to: email,
-                    subject: 'Confirma tu cuenta Enjooy',
-                    html: confirmAccountHTML
-                });
+                // const info = await transporter.sendMail({
+                //     from: 'Enjooy MX <no-reply@enjooy.mx>',
+                //     to: email,
+                //     subject: 'Confirma tu cuenta Enjooy',
+                //     html: confirmAccountHTML
+                // });
 
                 req.flash('alert_success', `Enviamos un enlace a ${email}`);
                 res.redirect('/signin');
